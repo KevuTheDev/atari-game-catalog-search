@@ -1,5 +1,5 @@
 <?php
-include "C:\\env\\env.php";
+include "../config/config.php";
 include "TableRows.php";
 
 
@@ -24,6 +24,27 @@ class Query {
             $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE atariTitle LIKE :name");
             $gameName = $gameName."%";
             $stmt->bindValue(":name", $gameName);
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            
+            if (empty($result) == true) {
+                print "hello";
+            }
+
+            foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+                print $v;
+            }
+        }catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    function query_genre($genre) {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE genre LIKE :genre");
+            $genre = $genre."%";
+            $stmt->bindValue(":genre", $genre);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
