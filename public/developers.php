@@ -8,15 +8,24 @@
     <title>Atari Game Catalog | CP 476 Project</title>
 </head>
 
-<header>
-</header>
 
 
 <body>
-    <h1>This is a header. :)</h1>
-</body>
+    <header>
+    </header>
 
-<footer>
-</footer>
+
+    <h2>Add Games</h2>
+    <form action="developers.php" method="post">
+        <input type="text" name="Game">
+        <input type="submit" name="submit" value="Add">
+
+    </form>
+
+
+
+    <footer>
+    </footer>
+</body>
 
 </html>
