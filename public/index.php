@@ -13,7 +13,7 @@
 
 <body>
     <h2>Search Bar</h2>
-    <form action="results.php" method="post">
+    <form action="results.php" method="get">
         <input type="text" name="search">
         <input type="submit" name="submit" value="Submit">
     </form>

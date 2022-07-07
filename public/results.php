@@ -16,8 +16,8 @@ include "../src/utils.php"
 
 <body>
     <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $search = $_POST["search"];
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $search = $_GET["search"];
             if (empty($search) === False) {
                 include "../src/Query.php";
                 $search = test_input($search);
