@@ -61,6 +61,25 @@ class Query {
         }
     }
 
+    function query_all() {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM videogames");
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            
+            if (empty($result) == true) {
+                print "hello";
+            }
+
+            foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+                print $v;
+            }
+        }catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }  
+    }
+
     function __destruct() {
         $this->conn = NULL;
     }

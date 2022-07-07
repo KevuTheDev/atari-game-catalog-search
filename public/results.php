@@ -33,7 +33,21 @@ include "../src/utils.php"
                 echo "</table>";
             } else {
                 // Error when no results
-                print "Please make a search query at localhost";
+                //print "Please make a search query at localhost";
+
+                
+                include "../src/Query.php";
+                $search = test_input($search);
+                
+                echo "<h2>Your Query:</h2>";
+                
+                echo "Querying all games";
+                echo "<br><br>";
+                echo "<table style='border: solid 1px black;'>";
+                echo "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Lead Programmer</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
+                $q = new Query();
+                $q->query_all();
+                echo "</table>";
             }
         } else {
             print "Please make a search query at localhost";

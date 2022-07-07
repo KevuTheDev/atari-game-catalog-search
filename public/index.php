@@ -20,7 +20,7 @@
     <br><br>
 
     <h2>Developers</h2>
-    <form action="developers.php" method="post">
+    <form action="developers.php" method="get">
         <input type="submit" name="submit" value="Login">
     </form>
 </body>

@@ -12,7 +12,10 @@
     <header></header>
 
 
-    <h1>This is a header. :)</h1>
+    <h1>Confirmation Page</h1>
+    Your game has been successfully added into the catalog!!
+    <br><br><br>
+    Welcome x y, you can now add games into the catalog!!
 
 
     <footer>

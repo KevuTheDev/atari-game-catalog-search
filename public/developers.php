@@ -14,12 +14,14 @@
     <header>
     </header>
 
+    <h2>Create Developer Account</h2>
+    <form action="add_developer.php" method="post">
+        <input type="submit" name="submit" value="Create Account">
+    </form>
 
     <h2>Add Games</h2>
-    <form action="developers.php" method="post">
-        <input type="text" name="Game">
-        <input type="submit" name="submit" value="Add">
-
+    <form action="add_games.php" method="post">
+        <input type="submit" name="submit" value="+">
     </form>
 
 
