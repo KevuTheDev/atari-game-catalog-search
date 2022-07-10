@@ -1,7 +1,8 @@
 <?php
-    function search() {
-        return "search.php";
-    }
+function search()
+{
+    return "search.php";
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -22,7 +23,7 @@
     <div id="body">
         <div id="search_bar">
             <h2>Search Bar</h2>
-            <form action="<?php print search(); ?>" method="get">
+            <form action="<?php print search();?>" method="get">
                 <input type="text" name="search">
                 <input type="submit" name="submit" value="Submit">
             </form>
