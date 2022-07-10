@@ -1,7 +1,6 @@
 <?php
-include "../config/config.php";
-include "TableRows.php";
-
+include_once "../config/config.php";
+include_once "TableRows.php";
 
 class Query {
     public $conn;

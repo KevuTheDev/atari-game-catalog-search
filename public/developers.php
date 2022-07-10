@@ -9,25 +9,23 @@
 </head>
 
 
-
 <body>
-    <header>
-    </header>
+    <div id="nav_bar">
+        <a href="index.php">Home</a>
+    </div>
 
-    <h2>Create Developer Account</h2>
-    <form action="add_developer.php" method="post">
-        <input type="submit" name="submit" value="Create Account">
-    </form>
+    <div id=" body">
+        <h2>Create Developer Account</h2>
+        <form action="add_developer.php" method="post">
+            <input type="submit" name="submit" value="Create Account">
+        </form>
 
-    <h2>Add Games</h2>
-    <form action="add_games.php" method="post">
-        <input type="submit" name="submit" value="+">
-    </form>
+        <h2>Add Games</h2>
+        <form action="add_games.php" method="post">
+            <input type="submit" name="submit" value="+">
+        </form>
+    </div>
 
-
-
-    <footer>
-    </footer>
 </body>
 
 </html>

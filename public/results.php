@@ -1,5 +1,5 @@
 <?php
-include "../src/utils.php"
+include "../src/utils.php";
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -15,6 +15,9 @@ include "../src/utils.php"
 </header>
 
 <body>
+    <div id="nav_bar">
+        <a href="index.php">Home</a>
+    </div>
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $search = $_GET["search"];
@@ -34,6 +37,8 @@ include "../src/utils.php"
             } else {
                 // Error when no results
                 //print "Please make a search query at localhost";
+                print "<h1 style=\"color:red\">THIS IS TEST FEATURE</h1>";
+                print "<h1 style=\"color:red\">THIS WILL NOT OUTPUT FULL TABLE</h1>";
 
                 
                 include "../src/Query.php";

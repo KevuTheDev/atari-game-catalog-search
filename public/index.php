@@ -8,24 +8,24 @@
     <title>Atari Game Catalog | CP 476 Project</title>
 </head>
 
-<header>
-</header>
-
 <body>
-    <h2>Search Bar</h2>
-    <form action="results.php" method="get">
-        <input type="text" name="search">
-        <input type="submit" name="submit" value="Submit">
-    </form>
-    <br><br>
+    <div id="nav_bar">
+        <a href="#">Home</a>
+    </div>
 
-    <h2>Developers</h2>
-    <form action="developers.php" method="get">
-        <input type="submit" name="submit" value="Login">
-    </form>
+    <div id="body">
+        <h2>Search Bar</h2>
+        <form action="results.php" method="get">
+            <input type="text" name="search">
+            <input type="submit" name="submit" value="Submit">
+        </form>
+        <br><br>
+
+        <h2>Developers</h2>
+        <form action="developers.php" method="get">
+            <input type="submit" name="submit" value="Login">
+        </form>
+    </div>
 </body>
-
-<footer>
-</footer>
 
 </html>
