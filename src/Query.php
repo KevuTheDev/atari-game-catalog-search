@@ -18,11 +18,38 @@ class Query {
         }
     }
 
-    function query_atari_title($gameName) {
+    function query_atari_title($query) {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE atariTitle LIKE :name");
-            $gameName = $gameName."%";
-            $stmt->bindValue(":name", $gameName);
+            $query = $query."%";
+            $stmt->bindValue(":name", $query);
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            
+            if (empty($result) == true) {
+                print "hello";
+            }
+
+            foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+                print $v;
+            }
+        }catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    function query_general_search($query) {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE atariTitle LIKE :name
+            OR searsTitle LIKE :name 
+            OR yearReleased LIKE :name
+            OR code LIKE :name
+            OR leadProgrammer LIKE :name
+            OR genre LIKE :name
+            ORDER BY atariTitle, searsTitle, yearReleased");
+            $query = "%".$query."%";
+            $stmt->bindValue(":name", $query);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
