@@ -45,8 +45,6 @@ class Query
     public function query_general_search($query)
     {
         try {
-            $query = "%" . $query . "%";
-            $stmt->bindValue(":name", $query);
             $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE atariTitle LIKE :name
             OR searsTitle LIKE :name
             OR yearReleased LIKE :name
@@ -54,6 +52,8 @@ class Query
             OR leadProgrammer LIKE :name
             OR genre LIKE :name
             ORDER BY atariTitle, searsTitle, yearReleased");
+            $query = "%" . $query . "%";
+            $stmt->bindValue(":name", $query);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -112,10 +112,44 @@ class Query
         }
     }
 
-    function __destruct() {
-        $this->conn = NULL;
+    public function add_game($columns)
+    {
+        try {
+            $insertString = "";
+            $insertValues = "";
+
+            foreach ($columns as $x => $x_value) {
+                $insertString = $insertString . $x . ", ";
+                if (empty($x_value) == false) {
+                    $insertValues = $insertValues . "\"" . $x_value . "\"" . ", ";
+                } else {
+                    $insertValues = $insertValues . "\"\"" . ", ";
+                }
+            }
+
+            $insertString = rtrim($insertString, ", ");
+            $insertValues = rtrim($insertValues, ", ");
+            $insertString = "(" . $insertString . ")";
+            $insertValues = "(" . $insertValues . ")";
+
+            print $insertString;
+            print "<br><br>";
+            print $insertValues;
+
+            $stmt = $this->conn->prepare("INSERT INTO videogames " . $insertString
+                . " VALUES " . $insertValues);
+
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            if (empty($result) == true) {
+                print "hello";
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
     }
-}
 
     public function __destruct()
     {
