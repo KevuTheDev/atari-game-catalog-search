@@ -1,11 +1,12 @@
 <?php
-include "../config/config.php";
-include "TableRows.php";
+include_once "../config/config.php";
+include_once "TableRows.php";
 
-
-class Query {
-    public $conn;
-    function __construct() {
+class Query
+{
+    private $conn;
+    public function __construct()
+    {
         $servername = $GLOBALS["SERVERNAME"];
         $username = $GLOBALS["USER"];
         $password = $GLOBALS["PASSWORD"];
@@ -14,56 +15,142 @@ class Query {
         try {
             $this->conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
     }
 
-    function query_atari_title($gameName) {
+    public function query_atari_title($query)
+    {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE atariTitle LIKE :name");
-            $gameName = $gameName."%";
-            $stmt->bindValue(":name", $gameName);
+            $query = $query . "%";
+            $stmt->bindValue(":name", $query);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            
+
             if (empty($result) == true) {
                 print "hello";
             }
 
-            foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+            foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
                 print $v;
             }
-        }catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
     }
 
-    function query_genre($genre) {
+    public function query_general_search($query)
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE atariTitle LIKE :name
+            OR searsTitle LIKE :name
+            OR yearReleased LIKE :name
+            OR code LIKE :name
+            OR leadProgrammer LIKE :name
+            OR genre LIKE :name
+            ORDER BY atariTitle, searsTitle, yearReleased");
+            $query = "%" . $query . "%";
+            $stmt->bindValue(":name", $query);
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            if (empty($result) == true) {
+                print "hello";
+            }
+
+            foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
+                print $v;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function query_genre($genre)
+    {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE genre LIKE :genre");
-            $genre = $genre."%";
+            $genre = $genre . "%";
             $stmt->bindValue(":genre", $genre);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            
+
             if (empty($result) == true) {
                 print "hello";
             }
 
-            foreach(new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k=>$v) {
+            foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
                 print $v;
             }
-        }catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
     }
 
-    function __destruct() {
-        $this->conn = NULL;
+    public function query_all()
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM videogames");
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            if (empty($result) == true) {
+                print "hello";
+            }
+
+            foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
+                print $v;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
+    public function add_game($columns)
+    {
+        try {
+            $insertString = "";
+            $insertValues = "";
+
+            foreach ($columns as $x => $x_value) {
+                $insertString = $insertString . $x . ", ";
+                if (empty($x_value) == false) {
+                    $insertValues = $insertValues . "\"" . $x_value . "\"" . ", ";
+                } else {
+                    $insertValues = $insertValues . "\"\"" . ", ";
+                }
+            }
+
+            $insertString = rtrim($insertString, ", ");
+            $insertValues = rtrim($insertValues, ", ");
+            $insertString = "(" . $insertString . ")";
+            $insertValues = "(" . $insertValues . ")";
+
+            $stmt = $this->conn->prepare("INSERT INTO videogames " . $insertString
+                . " VALUES " . $insertValues);
+
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            if (empty($result) == true) {
+                #print "hello";
+            }
+        } catch (PDOException $e) {
+            #echo "Error: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function __destruct()
+    {
+        $this->conn = null;
     }
 }
-
-?>
