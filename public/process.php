@@ -2,9 +2,8 @@
 include_once "../src/Query.php";
 include_once "../src/utils.php";
 
-function process()
+function add_game()
 {
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $verify = true;
         $columns = array();
@@ -67,5 +66,29 @@ function process()
     } else {
         print "confirmation_error.php";
     }
+
 }
+
+function add_developer()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    }
+}
+
+function process()
+{
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST["form_type"]) == true) {
+            if ($_POST["form_type"] == "add_game") {
+                add_game();
+            }
+            if ($_POST["form_type"] == "add_developer") {
+            }
+        } else {
+            pre_r($_POST);
+        }
+    }
+}
+
 process();

@@ -17,6 +17,7 @@
         <div id="game_form">
             <h2>Add Games</h2>
             <form action="process.php" method="post">
+                <input type="hidden" name="form_type" value="add_game">
                 Atari Title*: <br><input type="text" name="atari_title"><br><br>
                 Sears Title: <br><input type="text" name="sears_title"><br><br>
                 Code*: <br><input type="text" name="code"><br><br>
