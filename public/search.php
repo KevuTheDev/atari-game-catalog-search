@@ -9,7 +9,7 @@ function search()
 function get_query()
 {
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        $search = $_GET["search"];
+        $search = test_input($_GET["search"]);
         return $search;
     }
     return "my query";
@@ -25,15 +25,11 @@ function get_query()
     <title>Atari Game Catalog | CP 476 Project</title>
 </head>
 
-<header>
-</header>
-
 <body>
     <div id="nav_bar">
         <a href="index.php">Home</a>
     </div>
     <div id="body">
-
         <div id="search_bar">
             <h2>Search Bar</h2>
             <form action="<?php print search();?>" method="get">
@@ -51,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         echo "<h2>Your Query:</h2>";
 
-        echo "Results for \"" . $search . "\"";
+        echo "Results for \"" . $search . "\".";
         echo "<br><br>";
         echo "<table style='border: solid 1px black;'>";
         echo "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Lead Programmer</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
@@ -84,8 +80,5 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         </div>
     </div>
 </body>
-
-<footer>
-</footer>
 
 </html>

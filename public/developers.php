@@ -8,7 +8,6 @@
     <title>Atari Game Catalog | CP 476 Project</title>
 </head>
 
-
 <body>
     <div id="nav_bar">
         <a href="index.php">Home</a>

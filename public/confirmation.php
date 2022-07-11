@@ -14,10 +14,12 @@
     </div>
 
     <div id="body">
-        <h1>Confirmation Page</h1>
-        Your game has been successfully added into the catalog!!
-        <br><br><br>
-        Welcome x y, you can now add games into the catalog!!
+        <div id="confirmation">
+            <h1>Confirmation Page</h1>
+            <p>Your game has been successfully added into the catalog!!</p>
+            <br><br><br>
+            <p>Welcome x y, you can now add games into the catalog!!</p>
+        </div>
     </div>
 </body>
 

@@ -14,17 +14,19 @@
     </div>
 
     <div id="body">
-        <h2>Add Games</h2>
-        <form action="process.php" method="post">
-            Atari Title*: <br><input type="text" name="atari_title"><br><br>
-            Sears Title: <br><input type="text" name="sears_title"><br><br>
-            Code*: <br><input type="text" name="code"><br><br>
-            Lead Programmer: <br><input type="text" name="programmer"><br><br>
-            Year Released*: <br><input type="text" name="year"><br><br>
-            Genre*: <br><input type="text" name="genre"><br><br>
-            Notes: <br><textarea type="text" name="notes"></textarea><br>
-            <input type="submit" name="submit" value="Add">
-        </form>
+        <div id="game_form">
+            <h2>Add Games</h2>
+            <form action="process.php" method="post">
+                Atari Title*: <br><input type="text" name="atari_title"><br><br>
+                Sears Title: <br><input type="text" name="sears_title"><br><br>
+                Code*: <br><input type="text" name="code"><br><br>
+                Lead Programmer: <br><input type="text" name="programmer"><br><br>
+                Year Released*: <br><input type="text" name="year"><br><br>
+                Genre*: <br><input type="text" name="genre"><br><br>
+                Notes: <br><textarea type="text" name="notes"></textarea><br><br>
+                <input type="submit" name="submit" value="Add">
+            </form>
+        </div>
     </div>
 
 

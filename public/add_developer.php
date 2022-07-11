@@ -13,18 +13,17 @@
         <a href="index.php">Home</a>
     </div>
 
-
     <div id="body">
-        <h2>Create Developer Account</h2>
-        <form action="confirmation.php" method="post">
-            First Name*: <br><input type="text" name="atari_title"><br><br>
-            Last Name*: <br><input type="text" name="l_name"><br><br>
-            Username*: <br><input type="text" name="username"><br><br>
-            Password*: <br><input type="text" name="password"><br><br>
-
-
-            <input type="submit" name="submit" value="Add">
-        </form>
+        <div id="developer_form">
+            <h2>Create Developer Account</h2>
+            <form action="confirmation.php" method="post">
+                First Name*: <br><input type="text" name="atari_title"><br><br>
+                Last Name*: <br><input type="text" name="l_name"><br><br>
+                Username*: <br><input type="text" name="username"><br><br>
+                Password*: <br><input type="text" name="password"><br><br>
+                <input type="submit" name="submit" value="Add">
+            </form>
+        </div>
     </div>
 
 </body>

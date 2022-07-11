@@ -132,10 +132,6 @@ class Query
             $insertString = "(" . $insertString . ")";
             $insertValues = "(" . $insertValues . ")";
 
-            print $insertString;
-            print "<br><br>";
-            print $insertValues;
-
             $stmt = $this->conn->prepare("INSERT INTO videogames " . $insertString
                 . " VALUES " . $insertValues);
 
@@ -144,11 +140,13 @@ class Query
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
             if (empty($result) == true) {
-                print "hello";
+                #print "hello";
             }
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            #echo "Error: " . $e->getMessage();
+            return false;
         }
+        return true;
     }
 
     public function __destruct()
