@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE HTML>
 <html>
 
@@ -16,9 +20,22 @@
     <div id="body">
         <div id="confirmation">
             <h1>Confirmation Page</h1>
-            <p>Your game has been successfully added into the catalog!!</p>
-            <br><br><br>
-            <p>Welcome x y, you can now add games into the catalog!!</p>
+            <?php
+if ($_SESSION["confirmation"] == "valid") {
+    if ($_SESSION["form_type"] == "add_game") {
+        print "<p>Your game has been successfully added into the catalog!!</p>";
+    } else if ($_SESSION["form_type"] == "add_developer") {
+        print "<p>Welcome x y, you can now add games into the catalog!!</p>";
+    }
+} else if ($_SESSION["confirmation"] == "invalid") {
+    if ($_SESSION["form_type"] == "add_game") {
+        print "<p>Your game could not be inserted into the catalog.<br><br>Please try again later.</p>";
+    } else if ($_SESSION["form_type"] == "add_developer") {
+        print "<p>The developer account was not able to be created.<br><br>Please try again later.</p>";
+    }
+}
+
+?>
         </div>
     </div>
 </body>

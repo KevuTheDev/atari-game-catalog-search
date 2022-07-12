@@ -15,16 +15,14 @@
 
     <div id="body">
         <div id="create_developer_account">
-            <h2>Create Developer Account</h2>
-            <form action="add_developer.php" method="post">
-                <input type="submit" name="submit" value="Create Account">
-            </form>
+            <a href="add_developer.php">
+                <h2>Create Developer Account</h2>
+            </a>
         </div>
         <div id="add_game">
-            <h2>Add Game</h2>
-            <form action="add_games.php" method="post">
-                <input type="submit" name="submit" value="+">
-            </form>
+            <a href="add_games.php">
+                <h2>Add Game</h2>
+            </a>
         </div>
     </div>
 

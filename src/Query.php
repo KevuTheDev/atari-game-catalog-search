@@ -149,6 +149,30 @@ class Query
         return true;
     }
 
+    public function check_code($query)
+    {
+        # 0 = False;
+        # 1 = True;
+        # 2 = Error;
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE code=:theCode");
+            $stmt->bindValue(":theCode", $query);
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            if ($stmt->rowCount() == 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+            print $result;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return 2;
+        }
+    }
+
     public function __destruct()
     {
         $this->conn = null;
