@@ -44,14 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($columns["code"]) == true) {
         $verify = false;
         $code_err = "Code is required";
-
+    } else {
         # ALSO CHECK FOR DUPLICATE CODE IN DATABASE
         # MUST DO A DATABASE QUERY FOR CHECK
-    } else {
-        $q = new Query();
-        $results = $q->check_code($columns["code"]);
 
-        if ($results == 0) {
+        $q = new Query();
+        $result = $q->check_code($columns["code"]);
+
+        if ($result == 0) {
             $verify = false;
             $code_err = "Code is already in use";
         }
@@ -68,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $temp_year = date("Y");
             $temp_year = (int) $temp_year;
+
             if (!($columns["yearReleased"] > 0 && $columns["yearReleased"] <= $temp_year)) {
                 $verify = false;
                 $year_err = "Year Released must be 1 - " . $temp_year;
@@ -81,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $genre_err = "Genre is required";
     }
 
+    # CHECK FOR ALL
     if ($verify == true) {
         $columns["genre"] = $GLOBALS["genresAssociativeArray"][$columns["genre"]];
         $_SESSION["add_game"] = $columns;

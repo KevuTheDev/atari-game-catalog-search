@@ -126,6 +126,7 @@ class Query
                     $insertValues = $insertValues . "\"\"" . ", ";
                 }
             }
+            pre_r($columns);
 
             $insertString = rtrim($insertString, ", ");
             $insertValues = rtrim($insertValues, ", ");
@@ -149,6 +150,47 @@ class Query
         return true;
     }
 
+    public function add_developer($columns)
+    {
+        try {
+            #TEMP
+            $columns["salt"] = "123";
+            #TEMP
+
+            $insertString = "";
+            $insertValues = "";
+
+            foreach ($columns as $x => $x_value) {
+                $insertString = $insertString . $x . ", ";
+                if (empty($x_value) == false) {
+                    $insertValues = $insertValues . "\"" . $x_value . "\"" . ", ";
+                } else {
+                    $insertValues = $insertValues . "\"\"" . ", ";
+                }
+            }
+
+            $insertString = rtrim($insertString, ", ");
+            $insertValues = rtrim($insertValues, ", ");
+            $insertString = "(" . $insertString . ")";
+            $insertValues = "(" . $insertValues . ")";
+
+            $stmt = $this->conn->prepare("INSERT INTO users " . $insertString
+                . " VALUES " . $insertValues);
+
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            if (empty($result) == true) {
+                #print "hello";
+            }
+        } catch (PDOException $e) {
+            #echo "Error: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
     public function check_code($query)
     {
         # 0 = False;
@@ -156,6 +198,30 @@ class Query
         # 2 = Error;
         try {
             $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE code=:theCode");
+            $stmt->bindValue(":theCode", $query);
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            if ($stmt->rowCount() == 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+            print $result;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return 2;
+        }
+    }
+
+    public function check_username($query)
+    {
+        # 0 = False;
+        # 1 = True;
+        # 2 = Error;
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM users WHERE username=:theCode");
             $stmt->bindValue(":theCode", $query);
             $stmt->execute();
 

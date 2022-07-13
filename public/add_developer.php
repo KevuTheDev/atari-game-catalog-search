@@ -34,8 +34,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $verify = false;
         $username_err = "Username is required";
     } else {
-        $iii = 1;
         # Check if username exists in the database;
+
+        $q = new Query();
+        $result = $q->check_username($columns["username"]);
+
+        if ($result == 0) {
+            $verify = false;
+            $username_err = "Username is already in use";
+        }
     }
 
     # CHECK PASSWORD
@@ -51,7 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $verify = false;
         $confpassword_err = "Confirm Password is required";
     } else {
+        # CHECK IF PASSWORD IS NOT EMPTY
         if ($passverify == true) {
+            # CHECK IF PASSWORD AND CONFIRM PASSWORD THE SAME
             if (strcmp($columns["password"], $columns["confpassword"]) != 0) {
                 $verify = false;
                 $confpassword_err = "Confirm Password does not match Password";
@@ -59,13 +68,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    # CHECK FOR ALL
     if ($verify == true) {
+        unset($columns["confpassword"]);
         $_SESSION["add_developer"] = $columns;
         require_once "process.php";
-    } else {
-        print "what";
     }
-
 }
 
 ?>
@@ -95,14 +103,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h2>Create Developer Account</h2>
             <form action="add_developer.php" method="post">
                 <input type="hidden" name="form_type" value="add_developer">
-                First Name<span class="error">*</span>: <br><input type="text"
-                    name="firstname"><?php print_error($firstname_err);?><br><br>
+                First Name<span class="error">*</span>: <br><input type="text" name="firstname"
+                    value="<?php print value_output($columns, "firstname");?>"><?php print_error($firstname_err);?><br><br>
 
-                Last Name<span class="error">*</span>: <br><input type="text"
-                    name="lastname"><?php print_error($lastname_err);?><br><br>
+                Last Name<span class="error">*</span>: <br><input type="text" name="lastname"
+                    value="<?php print value_output($columns, "lastname");?>"><?php print_error($lastname_err);?><br><br>
 
-                Username<span class="error">*</span>: <br><input type="text"
-                    name="username"><?php print_error($username_err);?><br><br>
+                Username<span class="error">*</span>: <br><input type="text" name="username"
+                    value="<?php print value_output($columns, "username");?>"><?php print_error($username_err);?><br><br>
 
                 Password<span class="error">*</span>: <br><input type="password"
                     name="password"><?php print_error($password_err);?><br><br>

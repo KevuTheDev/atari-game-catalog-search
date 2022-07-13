@@ -5,7 +5,6 @@ include_once "../src/utils.php";
 
 function add_game()
 {
-
     $q = new Query();
     $result = $q->add_game($_SESSION["add_game"]);
 
@@ -22,6 +21,9 @@ function add_game()
 
 function add_developer()
 {
+    $q = new Query();
+    $result = $q->add_developer($_SESSION["add_developer"]);
+
     session_unset();
     $_SESSION["form_type"] = "add_developer";
     $result = true;
