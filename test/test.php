@@ -1,5 +1,7 @@
 <?php
 
-$test;
+$year = date("Y");
 
-print empty($test) == False;
+$year = (int) $year;
+
+print "Hello world " . $year;

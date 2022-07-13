@@ -9,12 +9,10 @@
 </head>
 
 <body>
-    <div id="nav_bar">
-        <a href="/">Home</a>
-    </div>
+    <a href="test.php">Home</a>
+    <h1>This is a header. :)</h1>
 
-    <div id="body">
-    </div>
 </body>
+
 
 </html>

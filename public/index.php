@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 function search()
 {
     return "search.php";
@@ -25,15 +28,22 @@ function search()
             <h2>Search Bar</h2>
             <form action="<?php print search();?>" method="get">
                 <input type="text" name="search">
-                <input type="submit" name="submit" value="Submit">
+                <input type="submit" name="submit" value="Search">
             </form>
         </div>
         <br><br>
         <div id="developers">
             <h2>Developers</h2>
-            <form action="developers.php" method="get">
-                <input type="submit" name="submit" value="Login">
-            </form>
+            <?php
+
+if (isset($_SESSION["username"]) == true) {
+    print "<p>Welcome back, " . $_SESSION["username"] . "</p>";
+    print "<a href=\"developers.php\"><h4>Dashboard</h4></a>";
+} else {
+    print "<a href=\"login.php\"><h4>Login</h4></a>";
+}
+?>
+
         </div>
     </div>
 </body>

@@ -14,16 +14,17 @@
     </div>
 
     <div id="body">
-        <!-- <div id="create_developer_account">
-            <h2>Create Developer Account</h2>
-            <form action="add_developer.php" method="post">
-                <input type="submit" name="submit" value="Create Account">
-            </form>
-        </div> -->
+        <div id="developer_header">
+            <h2>Developer Dashboard</h2>
+        </div>
         <div id="add_game">
-            <h2>Add Game</h2>
-            <form action="add_games.php" method="post">
-                <input type="submit" name="submit" value="+">
+            <a href="add_games.php">
+                <h2>Add Game</h2>
+            </a>
+        </div>
+        <div id="logout">
+            <form action="logout.php" method="post">
+                <input type="submit" name="submit" value="Logout">
             </form>
         </div>
     </div>
