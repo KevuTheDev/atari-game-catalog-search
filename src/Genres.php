@@ -1,5 +1,13 @@
 <?php
 
+function genre_menu_key($genre_name)
+{
+    $output = strtolower($genre_name);
+    $output = str_replace(" ", "-", $output);
+
+    return $output;
+}
+
 function genre_menu_array($genresArray)
 {
     $newGenresArray = array();

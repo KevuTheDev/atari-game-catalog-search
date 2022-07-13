@@ -3,14 +3,6 @@ include_once "../src/Genres.php";
 include_once "../src/Query.php";
 include_once "../src/utils.php";
 
-function genre_menu_key($genre_name)
-{
-    $output = strtolower($genre_name);
-    $output = str_replace(" ", "-", $output);
-
-    return $output;
-}
-
 function generate_genre_menu($genre_choice)
 {
     print "Genre<span class=\"error\">*</span>:<br><select name=\"genre\">";
@@ -24,12 +16,9 @@ function generate_genre_menu($genre_choice)
         }
     }
     print "</select>";
-#$poop = "1";
 }
 
 session_start();
-// pre_r($_SESSION);
-// pre_r($_POST);
 
 $atari_title_err = $code_err = $year_err = $genre_err = "";
 $columns = array();

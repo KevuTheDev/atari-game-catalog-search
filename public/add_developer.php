@@ -1,3 +1,75 @@
+<?php
+include_once "../src/Query.php";
+include_once "../src/utils.php";
+
+session_start();
+
+$firstname_err = $lastname_err = $username_err = $password_err = $confpassword_err = "";
+$columns = array();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $verify = true;
+    $passverify = false;
+
+    $columns["firstname"] = test_input($_POST["firstname"]);
+    $columns["lastname"] = test_input($_POST["lastname"]);
+    $columns["username"] = test_input($_POST["username"]);
+    $columns["password"] = test_input($_POST["password"]);
+    $columns["confpassword"] = test_input($_POST["confpassword"]);
+
+    # CHECK FIRST NAME
+    if (empty($columns["firstname"]) == true) {
+        $verify = false;
+        $firstname_err = "First Name is required";
+    }
+
+    # CHECK LAST NAME
+    if (empty($columns["lastname"]) == true) {
+        $verify = false;
+        $lastname_err = "Last Name is required";
+    }
+
+    # CHECK USERNAME
+    if (empty($columns["username"]) == true) {
+        $verify = false;
+        $username_err = "Username is required";
+    } else {
+        $iii = 1;
+        # Check if username exists in the database;
+    }
+
+    # CHECK PASSWORD
+    if (empty($columns["password"]) == true) {
+        $verify = false;
+        $password_err = "Password is required";
+    } else {
+        $passverify = true;
+    }
+
+    # CHECK CONFIRM PASSwORD
+    if (empty($columns["confpassword"]) == true) {
+        $verify = false;
+        $confpassword_err = "Confirm Password is required";
+    } else {
+        if ($passverify == true) {
+            if (strcmp($columns["password"], $columns["confpassword"]) != 0) {
+                $verify = false;
+                $confpassword_err = "Confirm Password does not match Password";
+            }
+        }
+    }
+
+    if ($verify == true) {
+        $_SESSION["add_developer"] = $columns;
+        require_once "process.php";
+    } else {
+        print "what";
+    }
+
+}
+
+?>
+
 <!DOCTYPE HTML>
 <html>
 
@@ -6,6 +78,11 @@
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
     <title>Atari Game Catalog | CP 476 Project</title>
+    <style>
+    .error {
+        color: #FF0000;
+    }
+    </style>
 </head>
 
 <body>
@@ -16,12 +93,23 @@
     <div id="body">
         <div id="developer_form">
             <h2>Create Developer Account</h2>
-            <form action="confirmation.php" method="post">
+            <form action="add_developer.php" method="post">
                 <input type="hidden" name="form_type" value="add_developer">
-                First Name*: <br><input type="text" name="firstname"><br><br>
-                Last Name*: <br><input type="text" name="lastname"><br><br>
-                Username*: <br><input type="text" name="username"><br><br>
-                Password*: <br><input type="text" name="password"><br><br>
+                First Name<span class="error">*</span>: <br><input type="text"
+                    name="firstname"><?php print_error($firstname_err);?><br><br>
+
+                Last Name<span class="error">*</span>: <br><input type="text"
+                    name="lastname"><?php print_error($lastname_err);?><br><br>
+
+                Username<span class="error">*</span>: <br><input type="text"
+                    name="username"><?php print_error($username_err);?><br><br>
+
+                Password<span class="error">*</span>: <br><input type="password"
+                    name="password"><?php print_error($password_err);?><br><br>
+
+                Confirm Password<span class="error">*</span>: <br><input type="password"
+                    name="confpassword"><?php print_error($confpassword_err);?><br><br>
+
                 <input type="submit" name="submit" value="Add">
             </form>
         </div>

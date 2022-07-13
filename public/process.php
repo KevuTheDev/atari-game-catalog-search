@@ -24,6 +24,7 @@ function add_developer()
 {
     session_unset();
     $_SESSION["form_type"] = "add_developer";
+    $result = true;
 
     if ($result == true) {
         $_SESSION["confirmation"] = "valid";
@@ -43,6 +44,8 @@ function process()
         if (empty($_SESSION["add_developer"]) == false) {
             add_developer();
         }
+    } else {
+        print "OH NO";
     }
 }
 
