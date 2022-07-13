@@ -1,6 +1,6 @@
 <?php
-include_once "../src/Query.php";
-include_once "../src/utils.php";
+require_once "../src/Query.php";
+require_once "../src/utils.php";
 
 session_start();
 

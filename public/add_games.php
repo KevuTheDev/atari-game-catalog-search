@@ -1,7 +1,7 @@
 <?php
-include_once "../src/Genres.php";
-include_once "../src/Query.php";
-include_once "../src/utils.php";
+require_once "../src/Genres.php";
+require_once "../src/Query.php";
+require_once "../src/utils.php";
 
 function generate_genre_menu($genre_choice)
 {

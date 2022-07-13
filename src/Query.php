@@ -23,7 +23,7 @@ class Query
     public function query_atari_title($query)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE atariTitle LIKE :name");
+            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `atariTitle` LIKE :name");
             $query = $query . "%";
             $stmt->bindValue(":name", $query);
             $stmt->execute();
@@ -45,7 +45,7 @@ class Query
     public function query_general_search($query)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE atariTitle LIKE :name
+            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `atariTitle` LIKE :name
             OR searsTitle LIKE :name
             OR yearReleased LIKE :name
             OR code LIKE :name
@@ -73,7 +73,7 @@ class Query
     public function query_genre($genre)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE genre LIKE :genre");
+            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `genre` LIKE :genre");
             $genre = $genre . "%";
             $stmt->bindValue(":genre", $genre);
             $stmt->execute();
@@ -95,7 +95,7 @@ class Query
     public function query_all()
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM videogames");
+            $stmt = $this->conn->prepare("SELECT * FROM `videogames`");
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -133,7 +133,7 @@ class Query
             $insertString = "(" . $insertString . ")";
             $insertValues = "(" . $insertValues . ")";
 
-            $stmt = $this->conn->prepare("INSERT INTO videogames " . $insertString
+            $stmt = $this->conn->prepare("INSERT INTO `videogames` " . $insertString
                 . " VALUES " . $insertValues);
 
             $stmt->execute();
@@ -174,7 +174,7 @@ class Query
             $insertString = "(" . $insertString . ")";
             $insertValues = "(" . $insertValues . ")";
 
-            $stmt = $this->conn->prepare("INSERT INTO users " . $insertString
+            $stmt = $this->conn->prepare("INSERT INTO `users` " . $insertString
                 . " VALUES " . $insertValues);
 
             $stmt->execute();
@@ -197,7 +197,7 @@ class Query
         # 1 = True;
         # 2 = Error;
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM videogames WHERE code=:theCode");
+            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `code`=:theCode");
             $stmt->bindValue(":theCode", $query);
             $stmt->execute();
 
@@ -221,13 +221,38 @@ class Query
         # 1 = True;
         # 2 = Error;
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM users WHERE username=:theCode");
+            $stmt = $this->conn->prepare("SELECT * FROM `users` WHERE `username`=:theCode");
             $stmt->bindValue(":theCode", $query);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
             if ($stmt->rowCount() == 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+            print $result;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return 2;
+        }
+    }
+
+    public function validate_login($username, $password)
+    {
+        # 0 = False;
+        # 1 = True;
+        # 2 = Error;
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM `users` WHERE `username`=:theUser and `password`=:thePass");
+            $stmt->bindValue(":theUser", $username);
+            $stmt->bindValue(":thePass", $password);
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+            if ($stmt->rowCount() == 1) {
                 return 1;
             } else {
                 return 0;

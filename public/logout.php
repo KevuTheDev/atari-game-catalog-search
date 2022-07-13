@@ -1,3 +1,14 @@
+<?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    session_start();
+
+    unset($_SESSION["username"]);
+}
+
+?>
+
+
 <!DOCTYPE HTML>
 <html>
 
@@ -14,6 +25,10 @@
     </div>
 
     <div id="body">
+        <div id="logout">
+            <h2>Log out</h2>
+            <p>You have logged out</p>
+        </div>
     </div>
 </body>
 

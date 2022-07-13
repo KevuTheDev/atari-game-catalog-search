@@ -1,5 +1,5 @@
 <?php
-include_once "../src/utils.php";
+require_once "../src/utils.php";
 
 function search()
 {
@@ -34,7 +34,7 @@ function get_query()
             <h2>Search Bar</h2>
             <form action="<?php print search();?>" method="get">
                 <input type="text" name="search" value="<?php print get_query();?>">
-                <input type="submit" name="submit" value="Submit">
+                <input type="submit" name="submit" value="Search">
             </form>
         </div>
         <div id="query">

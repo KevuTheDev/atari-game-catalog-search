@@ -1,14 +1,15 @@
 <?php
-include_once "../src/Genres.php";
-include_once "../src/Query.php";
-include_once "../src/utils.php";
+require_once "../src/Genres.php";
+require_once "../src/Query.php";
+require_once "../src/utils.php";
 
 function add_game()
 {
     $q = new Query();
     $result = $q->add_game($_SESSION["add_game"]);
 
-    session_unset();
+    //session_unset();
+    unset($_SESSION["add_game"]);
     $_SESSION["form_type"] = "add_game";
 
     if ($result == true) {
@@ -24,7 +25,8 @@ function add_developer()
     $q = new Query();
     $result = $q->add_developer($_SESSION["add_developer"]);
 
-    session_unset();
+    //session_unset();
+    unset($_SESSION["add_developer"]);
     $_SESSION["form_type"] = "add_developer";
     $result = true;
 

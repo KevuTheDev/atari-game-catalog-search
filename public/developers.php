@@ -14,15 +14,18 @@
     </div>
 
     <div id="body">
-        <div id="create_developer_account">
-            <a href="add_developer.php">
-                <h2>Create Developer Account</h2>
-            </a>
+        <div id="developer_header">
+            <h2>Developer Dashboard</h2>
         </div>
         <div id="add_game">
             <a href="add_games.php">
                 <h2>Add Game</h2>
             </a>
+        </div>
+        <div id="logout">
+            <form action="logout.php" method="post">
+                <input type="submit" name="submit" value="Logout">
+            </form>
         </div>
     </div>
 
