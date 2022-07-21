@@ -27,6 +27,13 @@ DEBUG_SESSION();
                 <h2>Add Game</h2>
             </a>
         </div>
+
+        <div id="edit_game">
+            <a href="edit_game.php">
+                <h2>Edit Game</h2>
+            </a>
+        </div>
+
         <div id="logout">
             <form action="logout.php" method="post">
                 <input type="submit" name="submit" value="Logout">

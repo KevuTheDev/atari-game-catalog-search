@@ -3,21 +3,6 @@ require_once "../src/Genres.php";
 require_once "../src/Query.php";
 require_once "../src/utils.php";
 
-function generate_genre_menu($genre_choice)
-{
-    print "Genre<span class=\"error\">*</span>:<br><select name=\"genre\">";
-    print "<option value=\"\"></option>";
-
-    foreach ($GLOBALS["genresAssociativeArray"] as $key => $value) {
-        if ($genre_choice == $key) {
-            print "<option selected=\"selected\" value=\"" . $key . "\">" . $value . "</option>\n";
-        } else {
-            print "<option value=\"" . $key . "\">" . $value . "</option>\n";
-        }
-    }
-    print "</select>";
-}
-
 session_start();
 
 $atari_title_err = $code_err = $year_err = $genre_err = "";
@@ -110,6 +95,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="nav_bar">
         <a href="index.php">Home</a>
     </div>
+    <?php
+require_once "../src/Debug.php";
+
+DEBUG_SESSION();
+?>
 
     <div id="body">
         <div id="game_form">
@@ -132,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Year Released<span class="error">*</span>: <br><input type="text" name="yearReleased"
                     value="<?php print value_output($columns, "yearReleased");?>"><?php print_error($year_err);?><br><br>
 
-                <?php generate_genre_menu(value_output($columns, "genre"));?>
+                <?php generate_genre_menu(value_output($columns, "genre"), true);?>
                 <?php print_error($genre_err);?><br><br>
                 Notes: <br><textarea type="text"
                     name="notes"><?php print value_output($columns, "notes");?></textarea><br><br>
