@@ -1,0 +1,44 @@
+.home-page .header-boundry-FLHHzU {
+    background-color: var(--white);
+    height: 100%;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.home-page .title-FLHHzU {
+    background-color: transparent;
+    color: var(--dove-gray);
+    font-family: var(--font-family-segoeui-regular);
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    height: 69px;
+    letter-spacing: 0.00px;
+    line-height: 50px;
+    position: absolute;
+    right: calc(49.93% - 216px);
+    text-align: left;
+    top: 50px;
+    white-space: nowrap;
+    width: 432px;
+}
+
+.home-page .search-for-your-game-FLHHzU {
+    background-color: transparent;
+    color: var(--dove-gray);
+    font-family: var(--font-family-segoeui-regular);
+    font-size: var(--font-size-xxl);
+    font-style: normal;
+    font-weight: 400;
+    height: 37px;
+    letter-spacing: 0.00px;
+    line-height: 26px;
+    position: absolute;
+    right: calc(49.93% - 256px);
+    text-align: center;
+    top: calc(36.07% - 13px);
+    white-space: nowrap;
+    width: 512px;
+}

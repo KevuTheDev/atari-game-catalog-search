@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($verify == true) {
             //$columns["genre"] = $GLOBALS["genresAssociativeArray"][$columns["genre"]];
             $_SESSION["edit_game"] = $columns;
-            require_once "process.php";
+            require_once "../src/Process.php";
         }
     }
 }

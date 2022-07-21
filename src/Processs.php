@@ -1,7 +1,7 @@
 <?php
-require_once "../src/Genres.php";
-require_once "../src/Query.php";
-require_once "../src/utils.php";
+require_once "Genres.php";
+require_once "Query.php";
+require_once "utils.php";
 
 function add_game()
 {
