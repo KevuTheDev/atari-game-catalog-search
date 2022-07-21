@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $columns["firstname"] = test_input($_POST["firstname"]);
     $columns["lastname"] = test_input($_POST["lastname"]);
-    $columns["username"] = test_input($_POST["username"]);
+    $columns["username"] = strtolower(test_input($_POST["username"]));
     $columns["password"] = test_input($_POST["password"]);
     $columns["confpassword"] = test_input($_POST["confpassword"]);
 
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Atari Game Catalog | CP 476 Project</title>
+    <title>Create Developer Account | Atari Game Catalog</title>
     <style>
     .error {
         color: #FF0000;
@@ -97,6 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="nav_bar">
         <a href="index.php">Home</a>
     </div>
+    <?php
+require_once "../src/Debug.php";
+
+DEBUG_SESSION();
+?>
 
     <div id="body">
         <div id="developer_form">

@@ -23,6 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="nav_bar">
         <a href="/">Home</a>
     </div>
+    <?php
+require_once "../src/Debug.php";
+
+DEBUG_SESSION();
+?>
 
     <div id="body">
         <div id="logout">

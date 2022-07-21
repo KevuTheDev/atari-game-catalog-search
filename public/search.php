@@ -22,13 +22,19 @@ function get_query()
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Atari Game Catalog | CP 476 Project</title>
+    <title>Search | Atari Game Catalog</title>
 </head>
 
 <body>
     <div id="nav_bar">
         <a href="index.php">Home</a>
     </div>
+    <?php
+require_once "../src/Debug.php";
+
+DEBUG_SESSION();
+?>
+
     <div id="body">
         <div id="search_bar">
             <h2>Search Bar</h2>

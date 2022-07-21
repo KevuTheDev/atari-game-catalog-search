@@ -13,13 +13,18 @@ pre_r($_SESSION);
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Atari Game Catalog | CP 476 Project</title>
+    <title>Confirmation | Atari Game Catalog</title>
 </head>
 
 <body>
     <div id="nav_bar">
         <a href="index.php">Home</a>
     </div>
+    <?php
+require_once "../src/Debug.php";
+
+DEBUG_SESSION();
+?>
 
     <div id="body">
         <?php
