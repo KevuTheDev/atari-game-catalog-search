@@ -1,41 +1,57 @@
 <?php
 require_once "../src/Query.php";
 require_once "../src/utils.php";
+require_once "../src/ErrorHandling.php";
+
+function login_form($username_err, $password_err)
+{
+    ?>
+<div id="create_developer_account">
+    <a href="add_developer.php">
+        <h2>Create Developer Account</h2>
+    </a>
+</div>
+<div id="login_form">
+    <h2>Login</h2>
+    <form action="<?php print htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
+        Username:<br><input type="text" name="username">
+        <?php print_error($username_err);?><br><br>
+        Password:<br><input type="password" name="password">
+        <?php print_error($password_err);?><br><br>
+        <input type="submit" name="submit" value="Login">
+    </form>
+</div>
+<?php
+}
+
+session_start();
 
 $username_err = $password_err = "";
-$columns = array();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $verify = true;
+if (isset($_SESSION["username"]) == false) {
+    $columns = array();
 
-    $columns["username"] = test_input($_POST["username"]);
-    $columns["password"] = test_input($_POST["password"]);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $verify = true;
 
-    if (empty($columns["username"]) == true) {
-        $verify = false;
-        $username_err = "Enter a username";
-    }
+        $columns["username"] = test_input($_POST["username"]);
+        $columns["password"] = test_input($_POST["password"]);
 
-    if (empty($columns["password"]) == true) {
-        $verify = false;
-        $password_err = "Enter a password";
-    }
+        if (empty($columns["username"]) == true) {
+            $verify = false;
+            $username_err = "Enter a username";
+        }
 
-    if ($verify == true) {
-        $q = new Query();
-        $result = $q->validate_login($columns["username"], $columns["password"]);
+        if (empty($columns["password"]) == true) {
+            $verify = false;
+            $password_err = "Enter a password";
+        }
 
-        if ($result == true) {
-            print "Logging in!!!<br><br>";
-            session_start();
-            $_SESSION["username"] = $columns["username"];
-
-            header("Refresh:1; url=developers.php");
-        } else {
-            print "INVALID LOGIN!!<br><br>";
+        if ($verify == true) {
+            $q = new Query();
+            $result = $q->validate_login($columns["username"], $columns["password"]);
         }
     }
-
 }
 
 ?>
@@ -66,21 +82,31 @@ DEBUG_SESSION();
 ?>
 
     <div id="body">
-        <div id="create_developer_account">
-            <a href="add_developer.php">
-                <h2>Create Developer Account</h2>
-            </a>
-        </div>
-        <div id="login_form">
-            <h2>Login</h2>
-            <form action="login.php" method="post">
-                Username:<br><input type="text" name="username">
-                <?php print_error($username_err);?><br><br>
-                Password:<br><input type="password" name="password">
-                <?php print_error($password_err);?><br><br>
-                <input type="submit" name="submit" value="Login">
-            </form>
-        </div>
+        <?php
+if (isset($_SESSION["username"]) == false) {
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($result) == true) {
+            if ($result == true) {
+                print "Logging in!!!<br><br>";
+                $_SESSION["username"] = $columns["username"];
+
+                header("Refresh:1; url=developers.php");
+            } else {
+                print "INVALID LOGIN!!<br><br>";
+            }
+        } else {
+            login_form($username_err, $password_err);
+
+        }
+    } else {
+        login_form($username_err, $password_err);
+
+    }
+} else {
+    error_invalid_page("Aren't you logged in?");
+}
+?>
     </div>
 </body>
 
