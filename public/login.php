@@ -1,6 +1,6 @@
 <?php
-require_once "../src/Query.php";
 require_once "../src/Header.php";
+require_once "../src/Query.php";
 
 function login_form($p_errors)
 {

@@ -1,6 +1,6 @@
 <?php
+require_once "../src/Header.php";
 require_once "../src/Query.php";
-require_once "../src/utils.php";
 require_once "../src/Genres.php";
 
 session_start();

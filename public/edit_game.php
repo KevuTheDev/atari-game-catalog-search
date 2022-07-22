@@ -21,8 +21,8 @@ DEBUG_SESSION();
 
     <div id="body">
         <?php
+require_once "../src/Header.php";
 require_once "../src/Query.php";
-require_once "../src/utils.php";
 echo "<table style='border: solid 1px black;'>";
 echo "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
 
