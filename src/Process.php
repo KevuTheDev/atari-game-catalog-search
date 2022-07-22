@@ -1,7 +1,7 @@
 <?php
-require_once "../src/Genres.php";
-require_once "../src/Query.php";
-require_once "../src/utils.php";
+require_once "Genres.php";
+require_once "Query.php";
+require_once "utils.php";
 
 function add_game()
 {
@@ -17,7 +17,7 @@ function add_game()
     } else {
         $_SESSION["confirmation"] = "invalid";
     }
-    header("Refresh:3; url=confirmation.php");
+    header("Refresh:1; url=confirmation.php");
 }
 
 function add_developer()
@@ -35,7 +35,24 @@ function add_developer()
     } else {
         $_SESSION["confirmation"] = "invalid";
     }
-    header("Refresh:3; url=confirmation.php");
+    header("Refresh:1; url=confirmation.php");
+}
+
+function edit_game()
+{
+    $q = new Query();
+    $result = $q->update_game($_SESSION["edit_game"]);
+
+    unset($_SESSION["edit_game"]);
+    $_SESSION["form_type"] = "edit_game";
+    $result = true;
+
+    if ($result == true) {
+        $_SESSION["confirmation"] = "valid";
+    } else {
+        $_SESSION["confirmation"] = "invalid";
+    }
+    header("Refresh:1; url=confirmation.php");
 }
 
 function process()
@@ -47,6 +64,10 @@ function process()
     } else if (isset($_SESSION["add_developer"]) == true) {
         if (empty($_SESSION["add_developer"]) == false) {
             add_developer();
+        }
+    } else if (isset($_SESSION['edit_game']) == true) {
+        if (empty($_SESSION["edit_game"]) == false) {
+            edit_game();
         }
     } else {
         print "OH NO";
