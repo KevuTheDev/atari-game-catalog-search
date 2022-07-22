@@ -1,11 +1,24 @@
 <?php
+require_once "../src/Header.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    session_start();
-
-    unset($_SESSION["username"]);
+function logout_message_success()
+{
+    ?>
+<div id="logout">
+    <h2>Log out</h2>
+    <p>You have logged out</p>
+</div>
+<?php
 }
 
+$logout_success = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    my_session_start();
+
+    unset($_SESSION["username"]);
+    $logout_success = true;
+}
 ?>
 
 
@@ -30,10 +43,13 @@ DEBUG_SESSION();
 ?>
 
     <div id="body">
-        <div id="logout">
-            <h2>Log out</h2>
-            <p>You have logged out</p>
-        </div>
+        <?php
+if ($logout_success == true) {
+    logout_message_success();
+} else {
+    error_invalid_page("Cannot log out if not logged in to begin with.");
+}
+?>
     </div>
 </body>
 
