@@ -1,9 +1,7 @@
 <?php
-require_once "../src/utils.php";
+require_once "../src/Header.php";
 
-session_start();
-
-pre_r($_SESSION);
+my_session_start();
 ?>
 
 <!DOCTYPE HTML>
@@ -14,6 +12,7 @@ pre_r($_SESSION);
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
     <title>Confirmation | Atari Game Catalog</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
 <body>
@@ -28,7 +27,6 @@ DEBUG_SESSION();
 
     <div id="body">
         <?php
-
 if (empty($_SESSION["form_type"]) == false) {
     if (empty($_SESSION["confirmation"]) == false) {
         print "<div id=\"confirmation\">";
@@ -60,10 +58,10 @@ if (empty($_SESSION["form_type"]) == false) {
 
         print "</div>";
     } else {
-        print "<h1>Invalid Page</h1>";
+        error_invalid_page("");
     }
 } else {
-    print "<h1>Invalid Page</h1>";
+    error_invalid_page("");
 }
 
 unset($_SESSION["form_type"]);
