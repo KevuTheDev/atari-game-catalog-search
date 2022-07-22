@@ -9,6 +9,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
     <title>Home | Atari Game Catalog</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
 <body>

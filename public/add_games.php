@@ -84,11 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
     <title>Atari Game Catalog | CP 476 Project</title>
-    <style>
-    .error {
-        color: #FF0000;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
 <body>
