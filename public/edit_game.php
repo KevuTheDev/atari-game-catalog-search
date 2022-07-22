@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
     <title>Edit Game | Atari Game Catalog</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
 <body>

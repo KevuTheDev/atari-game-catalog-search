@@ -21,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE HTML>
 <html>
 
@@ -29,7 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Atari Game Catalog | CP 476 Project</title>
+    <title>Logout | Atari Game Catalog</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
 <body>

@@ -23,6 +23,7 @@ function get_query()
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
     <title>Search | Atari Game Catalog</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
 <body>

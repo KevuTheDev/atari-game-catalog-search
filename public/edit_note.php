@@ -46,7 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Edit Note | Atari Game Catalog</title>
+    <title>Edit Game Note | Atari Game Catalog</title>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
     <style>
     .error {
         color: #FF0000;
