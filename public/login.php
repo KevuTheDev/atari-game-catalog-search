@@ -1,7 +1,6 @@
 <?php
 require_once "../src/Query.php";
-require_once "../src/utils.php";
-require_once "../src/ErrorHandling.php";
+require_once "../src/Header.php";
 
 function login_form($username_err, $password_err)
 {
@@ -24,7 +23,7 @@ function login_form($username_err, $password_err)
 <?php
 }
 
-session_start();
+my_session_start();
 
 $username_err = $password_err = "";
 
@@ -53,7 +52,6 @@ if (isset($_SESSION["username"]) == false) {
         }
     }
 }
-
 ?>
 
 <!DOCTYPE HTML>
@@ -64,11 +62,7 @@ if (isset($_SESSION["username"]) == false) {
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
     <title>Atari Game Catalog | CP 476 Project</title>
-    <style>
-    .error {
-        color: #FF0000;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
 <body>
@@ -83,25 +77,30 @@ DEBUG_SESSION();
 
     <div id="body">
         <?php
+# Check if developer is logged in
 if (isset($_SESSION["username"]) == false) {
-
+    # Check if request method is POST
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        # This refers higher. Login was successful if $result true.
         if (isset($result) == true) {
             if ($result == true) {
+                ###TODO
+                #Better page design.
                 print "Logging in!!!<br><br>";
                 $_SESSION["username"] = $columns["username"];
 
+                # Move to developers.php page
                 header("Refresh:1; url=developers.php");
             } else {
+                ###TODO
+                #Better page design.
                 print "INVALID LOGIN!!<br><br>";
             }
         } else {
             login_form($username_err, $password_err);
-
         }
     } else {
         login_form($username_err, $password_err);
-
     }
 } else {
     error_invalid_page("Aren't you logged in?");
