@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         echo "<table style='border: solid 1px black;'>";
         echo "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Lead Programmer</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
         $q = new Query();
-        $q->query_all();
+        $q->query_games();
         echo "</table>";
     }
 } else {

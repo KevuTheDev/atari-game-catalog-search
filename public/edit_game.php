@@ -21,7 +21,7 @@ echo "<table style='border: solid 1px black;'>";
 echo "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
 
 $q = new Query();
-$results = $q->query_username_games($_SESSION["username"]);
+$results = $q->query_games_by_username($_SESSION["username"]);
 
 foreach ($results as $k => $v) {
     print "<tr>";

@@ -1,6 +1,6 @@
 <?php
-include_once "../config/config.php";
-include_once "TableRows.php";
+require_once "../config/config.php";
+require_once "TableRows.php";
 
 class Query
 {
@@ -16,29 +16,7 @@ class Query
             $this->conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
-
-    public function query_atari_title($query)
-    {
-        try {
-            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `atariTitle` LIKE :name");
-            $query = $query . "%";
-            $stmt->bindValue(":name", $query);
-            $stmt->execute();
-
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            if (empty($result) == true) {
-                print "hello";
-            }
-
-            foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
-                print $v;
-            }
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
         }
     }
 
@@ -58,61 +36,35 @@ class Query
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            if (empty($result) == true) {
-                print "hello";
-            }
-
             foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
                 print $v;
             }
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
         }
     }
 
-    public function query_genre($genre)
+    public function query_games()
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `genre` LIKE :genre");
-            $genre = $genre . "%";
-            $stmt->bindValue(":genre", $genre);
+            $stmt = $this->conn->prepare("SELECT `atariTitle`, `searsTitle`, `code`,
+            `leadProgrammer`,
+            `yearReleased`,
+            `genre`,
+            `notes` FROM `videogames`");
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            if (empty($result) == true) {
-                print "hello";
-            }
-
             foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
                 print $v;
             }
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
         }
     }
 
-    public function query_all()
-    {
-        try {
-            $stmt = $this->conn->prepare("SELECT * FROM `videogames`");
-            $stmt->execute();
-
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            if (empty($result) == true) {
-                print "hello";
-            }
-
-            foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
-                print $v;
-            }
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
-
-    public function query_username_games($username)
+    public function query_games_by_username($username)
     {
         try {
             $stmt = $this->conn->prepare("SELECT `atariTitle`, `searsTitle` , `yearReleased`, `genre`, `notes`, `code` FROM `videogames` WHERE `username`=:username");
@@ -122,19 +74,14 @@ class Query
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
             return $stmt->fetchAll();
-
-            // foreach ($stmt->fetchAll() as $k => $v) {
-            //     $item = new NewTable($v);
-            // }
-
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
 
             return null;
         }
     }
 
-    public function query_code($code)
+    public function query_games_by_code($code)
     {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `code`=:code");
@@ -145,13 +92,13 @@ class Query
 
             return $stmt->fetchAll();
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
 
             return null;
         }
     }
 
-    public function add_game($columns)
+    public function insert_game($columns)
     {
         try {
             $insertString = "";
@@ -178,18 +125,14 @@ class Query
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            if (empty($result) == true) {
-                #print "hello";
-            }
         } catch (PDOException $e) {
-            #echo "Error: " . $e->getMessage();
+            #print "Error: " . $e->getMessage();
             return false;
         }
         return true;
     }
 
-    public function add_developer($columns)
+    public function insert_developer($columns)
     {
         try {
             #TEMP
@@ -219,18 +162,14 @@ class Query
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            if (empty($result) == true) {
-                #print "hello";
-            }
         } catch (PDOException $e) {
-            #echo "Error: " . $e->getMessage();
+            #print "Error: " . $e->getMessage();
             return false;
         }
         return true;
     }
 
-    public function update_game($columns)
+    public function update_game_notes_by_code($columns)
     {
         try {
             $stmt = $this->conn->prepare("UPDATE `videogames` SET `notes`=:notes WHERE `code`=:code");
@@ -239,15 +178,14 @@ class Query
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
             return false;
         }
         return true;
     }
 
-    public function check_code($query)
+    public function check_code_exists($query)
     {
         # 0 = False;
         # 1 = True;
@@ -257,21 +195,18 @@ class Query
             $stmt->bindValue(":theCode", $query);
             $stmt->execute();
 
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
             if ($stmt->rowCount() == 0) {
                 return 1;
             } else {
                 return 0;
             }
-            print $result;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
             return 2;
         }
     }
 
-    public function check_username($query)
+    public function check_username_exists($query)
     {
         # 0 = False;
         # 1 = True;
@@ -290,7 +225,7 @@ class Query
             }
             print $result;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
             return 2;
         }
     }
@@ -308,14 +243,14 @@ class Query
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            if ($stmt->rowCount() == 1) {
+            if ($stmt->rowCount() >= 1) {
                 return 1;
             } else {
                 return 0;
             }
             print $result;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
             return 2;
         }
     }

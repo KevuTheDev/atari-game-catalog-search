@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         # MUST DO A DATABASE QUERY FOR CHECK
 
         $q = new Query();
-        $result = $q->check_code($dataStorage["code"]);
+        $result = $q->check_code_exists($dataStorage["code"]);
 
         if ($result == 0) {
             $verify = false;

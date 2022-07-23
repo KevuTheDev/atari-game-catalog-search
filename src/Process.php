@@ -6,7 +6,7 @@ require_once "utils.php";
 function add_game()
 {
     $q = new Query();
-    $result = $q->add_game($_SESSION["add_game"]);
+    $result = $q->insert_game($_SESSION["add_game"]);
 
     //session_unset();
     unset($_SESSION["add_game"]);
@@ -23,7 +23,7 @@ function add_game()
 function add_developer()
 {
     $q = new Query();
-    $result = $q->add_developer($_SESSION["add_developer"]);
+    $result = $q->insert_developer($_SESSION["add_developer"]);
 
     //session_unset();
     unset($_SESSION["add_developer"]);
@@ -41,7 +41,7 @@ function add_developer()
 function edit_game()
 {
     $q = new Query();
-    $result = $q->update_game($_SESSION["edit_game"]);
+    $result = $q->update_game_notes_by_code($_SESSION["edit_game"]);
 
     unset($_SESSION["edit_game"]);
     $_SESSION["form_type"] = "edit_game";

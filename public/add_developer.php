@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         # Check if username exists in the database;
         $q = new Query();
-        $result = $q->check_username($dataStorage["username"]);
+        $result = $q->check_username_exists($dataStorage["username"]);
 
         if ($result == 0) {
             $verify = false;
