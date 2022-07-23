@@ -1,11 +1,6 @@
 <?php
 require_once "../src/Header.php";
 
-function search()
-{
-    return "search.php";
-}
-
 function get_query()
 {
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -33,7 +28,7 @@ function get_query()
     <div id="body">
         <div id="search_bar">
             <h2>Search Bar</h2>
-            <form action="<?php print search();?>" method="get">
+            <form action="<?php print htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
                 <input type="text" name="search" value="<?php print get_query();?>">
                 <input type="submit" name="submit" value="Search">
             </form>

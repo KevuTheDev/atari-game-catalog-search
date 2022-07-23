@@ -7,7 +7,7 @@ function developer_form($p_dataStorage, $p_errors)
     ?>
 <div id="developer_form">
     <h2>Create Developer Account</h2>
-    <form action="add_developer.php" method="post">
+    <form action="<?php print htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <input type="hidden" name="form_type" value="add_developer">
         <label for="firstname">First Name</label><span class="error">*</span>: <br>
         <input type="text" name="firstname" id="firstname"

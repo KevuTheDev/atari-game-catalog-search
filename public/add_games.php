@@ -8,7 +8,7 @@ function game_form($p_dataStorage, $p_errors)
     ?>
 <div id="game_form">
     <h2>Add Games</h2>
-    <form action="add_games.php" method="post">
+    <form action="<?php print htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <input type="hidden" name="form_type" value="add_game">
         <label for="atariTitle">Atari Title<span class="error">*</span>: </label><br>
         <input type="text" name="atariTitle" id="atariTitle" placeholder="Adventures of John"
