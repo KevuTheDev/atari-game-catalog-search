@@ -3,6 +3,44 @@ require_once "../src/Header.php";
 require_once "../src/Genres.php";
 require_once "../src/Query.php";
 
+function game_form($p_dataStorage, $p_errors)
+{
+    ?>
+<div id="game_form">
+    <h2>Add Games</h2>
+    <form action="add_games.php" method="post">
+        <input type="hidden" name="form_type" value="add_game">
+        <label for="atariTitle">Atari Title<span class="error">*</span>: </label><br>
+        <input type="text" name="atariTitle" id="atariTitle" placeholder="Adventures of John"
+            value="<?php print value_output($p_dataStorage, "atariTitle");?>">
+        <?php print_error($p_errors["atariTitle"]);?><br><br>
+
+        <label for="searsTitle">Sears Title: </label><br><input type="text" name="searsTitle" id="searsTitle"
+            value="<?php print value_output($p_dataStorage, "searsTitle");?>"><br><br>
+
+        <label for="code">Code<span class="error">*</span>: </label><br><input type="text" name="code" id="code"
+            value="<?php print value_output($p_dataStorage, "code");?>">
+        <?php print_error($p_errors["code"]);?><br><br>
+
+        <label for="leadProgrammer">Lead Programmer: </label><br><input type="text" name="leadProgrammer"
+            id="leadProgrammer" value="<?php print value_output($p_dataStorage, "leadProgrammer");?>"><br><br>
+
+        <label for="yearReleased">Year Released<span class="error">*</span>: </label><br><input type="text"
+            name="yearReleased" id="yearReleased" value="<?php print value_output($p_dataStorage, "yearReleased");?>">
+        <?php print_error($p_errors["yearReleased"]);?><br><br>
+
+        <?php generate_genre_menu(value_output($p_dataStorage, "genre"), true);?>
+        <?php print_error($p_errors["genre"]);?><br><br>
+
+        <label for="notes">Notes: </label><br><textarea type="text"
+            name="notes"><?php print value_output($p_dataStorage, "notes");?></textarea><br><br>
+
+        <input type="submit" name="submit" value="Add">
+    </form>
+</div>
+<?php
+}
+
 my_session_start();
 
 $errors = array("atariTitle" => "",
@@ -95,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Atari Game Catalog | CP 476 Project</title>
+    <title>Add Game | Atari Game Catalog</title>
     <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
@@ -111,39 +149,7 @@ DEBUG_SESSION();
 
     <div id="body">
         <?php
-function game_form($p_dataStorage, $p_errors)
-{
-    ?>
-        <div id="game_form">
-            <h2>Add Games</h2>
-            <form action="add_games.php" method="post">
-                <input type="hidden" name="form_type" value="add_game">
-                Atari Title<span class="error">*</span>: <br><input type="text" name="atariTitle"
-                    placeholder="Adventures of John"
-                    value="<?php print value_output($p_dataStorage, "atariTitle");?>"><?php print_error($p_errors["atariTitle"]);?><br><br>
 
-                Sears Title: <br><input type="text" name="searsTitle"
-                    value="<?php print value_output($p_dataStorage, "searsTitle");?>"><br><br>
-
-                Code<span class="error">*</span>: <br><input type="text" name="code"
-                    value="<?php print value_output($p_dataStorage, "code");?>"><?php print_error($p_errors["code"]);?><br><br>
-
-                Lead Programmer: <br><input type="text" name="leadProgrammer"
-                    value="<?php print value_output($p_dataStorage, "leadProgrammer");?>"><br><br>
-
-                Year Released<span class="error">*</span>: <br><input type="text" name="yearReleased"
-                    value="<?php print value_output($p_dataStorage, "yearReleased");?>"><?php print_error($p_errors["yearReleased"]);?><br><br>
-
-                <?php generate_genre_menu(value_output($p_dataStorage, "genre"), true);?>
-                <?php print_error($p_errors["genre"]);?><br><br>
-                Notes: <br><textarea type="text"
-                    name="notes"><?php print value_output($p_dataStorage, "notes");?></textarea><br><br>
-
-                <input type="submit" name="submit" value="Add">
-            </form>
-        </div>
-        <?php
-}
 game_form($dataStorage, $errors);
 ?>
     </div>
