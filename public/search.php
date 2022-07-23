@@ -27,14 +27,8 @@ function get_query()
 </head>
 
 <body>
-    <div id="nav_bar">
-        <a href="index.php">Home</a>
-    </div>
-    <?php
-require_once "../src/Debug.php";
-
-DEBUG_SESSION();
-?>
+    <?php include_once "../src/components/nav_bar.php";?>
+    <?php include_once "../src/Debug.php";?>
 
     <div id="body">
         <div id="search_bar">

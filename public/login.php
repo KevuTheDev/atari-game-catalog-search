@@ -71,14 +71,8 @@ if (isset($_SESSION["username"]) == false) {
 </head>
 
 <body>
-    <div id="nav_bar">
-        <a href="/">Home</a>
-    </div>
-    <?php
-require_once "../src/Debug.php";
-
-DEBUG_SESSION();
-?>
+    <?php include_once "../src/components/nav_bar.php";?>
+    <?php include_once "../src/Debug.php";?>
 
     <div id="body">
         <?php
