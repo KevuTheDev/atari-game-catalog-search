@@ -1,8 +1,6 @@
 <?php
 session_start();
 ?>
-<!DOCTYPE HTML>
-<html>
 
 <head>
     <meta charset="utf-8">
@@ -33,11 +31,13 @@ body {
 
 .search-bar {
     width: 600px;
-    height: 20px;
+    height: 30px;
+    border-radius: 5px;
 }
 
 .search-button {
     border-radius: 10px;
+    font-size: 20px;
     background: white;
 }
 </style>
@@ -66,20 +66,3 @@ print "<a href=\"developers.php\"><h4>Dashboard</h4></a>";
             </form>
         </div>
     </div>
-    <?php
-require_once "../src/Debug.php";
-
-DEBUG_SESSION();
-?>
-
-    <div id="body">
-        <br><br>
-        <div id="developers">
-            <h2>Developers</h2>
-            <?php
-?>
-        </div>
-    </div>
-</body>
-
-</html>
