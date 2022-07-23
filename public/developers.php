@@ -16,8 +16,9 @@
     <?php
 require_once "../src/Debug.php";
 
-DEBUG_SESSION();
+// DEBUG_SESSION();
 ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/header/header.php';?>
 
     <div id="body">
         <div id="developer_header">

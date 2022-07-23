@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <head>
     <meta charset="utf-8">
     <meta name="description" content="">
@@ -66,3 +62,4 @@ print "<a href=\"developers.php\"><h4>Dashboard</h4></a>";
             </form>
         </div>
     </div>
+</body>

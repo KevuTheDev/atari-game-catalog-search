@@ -44,28 +44,17 @@ body {
 <?php
 if (isset($_SESSION["username"]) == true) {
     ?>
-<div class="welcome">
-    <a href="/">Home</a>
-    <?php
-print "<a href=\"developers.php\"><h4>Dashboard</h4></a>";
-    print "<p>Welcome back, " . $_SESSION["username"] . "</p>";
-    ?>
-</div>
+
 <?php
 } else {
     print "<a href=\"login.php\"><h4>Login</h4></a>";
 }
+
+include $_SERVER['DOCUMENT_ROOT'] . '/header/header.php';
 ?>
 
 <body>
-    <div class="nav_bar" id="nav_bar">
-        <div id="search_bar">
-            <form action="search.php" method="get">
-                <input class="search-bar" type="text" name="search">
-                <input class="search-button" type="submit" name="submit" value="Search">
-            </form>
-        </div>
-    </div>
+
     <?php
 require_once "../src/Debug.php";
 
