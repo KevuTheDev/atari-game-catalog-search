@@ -47,7 +47,6 @@ $errors = array("atariTitle" => "",
     "code" => "",
     "yearReleased" => "",
     "genre" => "");
-$atari_title_err = $code_err = $year_err = $genre_err = "";
 $dataStorage = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -64,14 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     # CHECK TITLE IS NOT EMPTY
     if (empty($dataStorage["atariTitle"]) == true) {
         $verify = false;
-        $atari_title_err = "Atari Title is required";
         $errors["atariTitle"] = "Atari Title is required";
     }
 
     #CHECK CODE IS NOT EMPTY
     if (empty($dataStorage["code"]) == true) {
         $verify = false;
-        $code_err = "Code is required";
         $errors["code"] = "Code is required";
     } else {
         # ALSO CHECK FOR DUPLICATE CODE IN DATABASE
@@ -82,7 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result == 0) {
             $verify = false;
-            $code_err = "Code is already in use";
             $errors["code"] = "Code is already in use";
         }
     }
@@ -90,12 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     # CHECK YEAR IS NOT EMPTY, IS NUMERIC, AND WITHIN RANGE
     if (empty($dataStorage["yearReleased"]) == true) {
         $verify = false;
-        $year_err = "Year Released is required";
         $errors["yearReleased"] = "Year Released is required";
     } else {
         if (is_numeric($dataStorage["yearReleased"]) == false) {
             $verify = false;
-            $year_err = "Year Released must be numeric value";
             $errors["yearReleased"] = "Year Released must be numeric value";
         } else {
             $temp_year = date("Y");
@@ -103,7 +97,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (!($dataStorage["yearReleased"] > 0 && $dataStorage["yearReleased"] <= $temp_year)) {
                 $verify = false;
-                $year_err = "Year Released must be 1 - " . $temp_year;
                 $errors["yearReleased"] = "Year Released must be 1 - " . $temp_year;
             }
         }
@@ -112,7 +105,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     # CHECK GENRE IS NOT EMPTY
     if (empty($dataStorage["genre"]) == true) {
         $verify = false;
-        $genre_err = "Genre is required";
         $errors["genre"] = "Genre is required";
     }
 
