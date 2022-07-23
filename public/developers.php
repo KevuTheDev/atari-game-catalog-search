@@ -18,7 +18,7 @@
             <h2>Developer Dashboard</h2>
         </div>
         <div id="add_game">
-            <a href="add_games.php">
+            <a href="add_game.php">
                 <h2>Add Game</h2>
             </a>
         </div>

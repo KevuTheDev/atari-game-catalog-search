@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dataStorage["yearReleased"] = test_input($_POST["yearReleased"]);
     $dataStorage["genre"] = test_input($_POST["genre"]);
     $dataStorage["notes"] = test_input($_POST["notes"]);
+    $dataStorage["username"] = $_SESSION["username"];
 
     # CHECK TITLE IS NOT EMPTY
     if (empty($dataStorage["atariTitle"]) == true) {
@@ -111,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     # CHECK FOR ALL
     if ($verify == true) {
         $dataStorage["genre"] = $GLOBALS["genresAssociativeArray"][$dataStorage["genre"]];
+        $dataStorage["username"] = $_SESSION["username"];
         $_SESSION["add_game"] = $dataStorage;
         require_once "../src/Process.php";
     }
