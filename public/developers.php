@@ -1,3 +1,41 @@
+<?php
+require_once "../src/Header.php";
+
+function dashboard()
+{
+    if (isset($_SESSION["username"]) == true) {
+        ?>
+<?php print "<h1>Welcome back, " . $_SESSION["username"] . "</h1>";?>
+<div id="developer_header">
+    <h2>Developer Dashboard</h2>
+</div>
+<div id="add_game">
+    <a href="add_game.php">
+        <h3>Add Game</h3>
+    </a>
+</div>
+
+<div id="view_game">
+    <a href="view_games.php">
+        <h3>View Game</h3>
+    </a>
+</div>
+
+<div id="logout">
+    <form action="logout.php" method="post">
+        <input type="submit" name="submit" value="Logout">
+    </form>
+</div>
+<?php
+} else {
+        error_invalid_page("Must be logged in to visit dashboard!");
+    }
+}
+
+my_session_start();
+
+?>
+
 <!DOCTYPE HTML>
 <html>
 
@@ -14,26 +52,9 @@
     <?php include_once "../src/Debug.php";?>
 
     <div id="body">
-        <div id="developer_header">
-            <h2>Developer Dashboard</h2>
-        </div>
-        <div id="add_game">
-            <a href="add_game.php">
-                <h3>Add Game</h3>
-            </a>
-        </div>
-
-        <div id="view_game">
-            <a href="view_games.php">
-                <h3>View Game</h3>
-            </a>
-        </div>
-
-        <div id="logout">
-            <form action="logout.php" method="post">
-                <input type="submit" name="submit" value="Logout">
-            </form>
-        </div>
+        <?php
+dashboard();
+?>
     </div>
 
 </body>

@@ -7,7 +7,7 @@ function game_form($p_dataStorage, $p_errors)
 {
     ?>
 <div id="game_form">
-    <h2>Add Games</h2>
+    <h2>Add Game</h2>
     <form action="<?php print htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <input type="hidden" name="form_type" value="add_game">
         <label for="atariTitle">Atari Title<span class="error">*</span>: </label><br>
@@ -140,8 +140,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div id="body">
         <?php
-
-game_form($dataStorage, $errors);
+if (isset($_SESSION["username"]) == true) {
+    game_form($dataStorage, $errors);
+} else {
+    error_invalid_page("Must be logged in to add games.");
+}
 ?>
     </div>
 

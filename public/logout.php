@@ -40,18 +40,16 @@ if (isset($_SESSION["username"]) == true) {
 
     <div id="body">
         <?php
-if (isset($_SESSION["username"]) == true) {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if ($logout_success == true) {
-            logout_message_success();
-        } else {
+if ($logout_success == true) {
+    logout_message_success();
+} else {
+    if (isset($_SESSION["username"]) == false) {
+        error_invalid_page("Cannot log out if not logged in to begin with.");
+    } else {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
             error_invalid_page("Please logout from the dashboard.");
         }
-    } else {
-        error_invalid_page("Please logout from the dashboard.");
     }
-} else {
-    error_invalid_page("Cannot log out if not logged in to begin with.");
 }
 ?>
     </div>

@@ -119,7 +119,7 @@ if (isset($_SESSION["username"]) == true) {
         <?php
 }
 } else {
-    error_invalid_page("Account required!");
+    error_invalid_page("Must be logged in to edit game.");
 }
 ?>
     </div>

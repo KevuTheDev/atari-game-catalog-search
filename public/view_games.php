@@ -21,19 +21,22 @@ require_once "../src/Query.php";
 
     <div id="body">
         <?php
-echo "<table style='border: solid 1px black;'>";
-echo "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Lead Programmer</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
+if (isset($_SESSION["username"]) == true) {
+    echo "<table style='border: solid 1px black;'>";
+    echo "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Lead Programmer</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
 
-$q = new Query();
-$results = $q->query_games_by_username($_SESSION["username"]);
+    $q = new Query();
+    $results = $q->query_games_by_username($_SESSION["username"]);
 
-foreach ($results as $k => $v) {
-    print "<tr>";
-    $item = new NewRow($v);
-    print "</tr>";
+    foreach ($results as $k => $v) {
+        print "<tr>";
+        $item = new NewRow($v);
+        print "</tr>";
+    }
+    echo "</table>";
+} else {
+    error_invalid_page("Must be logged in to view games.");
 }
-echo "</table>";
-
 ?>
     </div>
 </body>
