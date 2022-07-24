@@ -1,6 +1,7 @@
 <?php
-include_once "../config/config.php";
-include_once "TableRows.php";
+require_once "../config/config.php";
+require_once "TableRows.php";
+require_once "utils.php";
 
 class Query
 {
@@ -16,36 +17,18 @@ class Query
             $this->conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
-
-    public function query_atari_title($query)
-    {
-        try {
-            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `atariTitle` LIKE :name");
-            $query = $query . "%";
-            $stmt->bindValue(":name", $query);
-            $stmt->execute();
-
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            if (empty($result) == true) {
-                print "hello";
-            }
-
-            foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
-                print $v;
-            }
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
         }
     }
 
     public function query_general_search($query)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `atariTitle` LIKE :name
+            $stmt = $this->conn->prepare("SELECT  `atariTitle`, `searsTitle`, `code`,
+            `leadProgrammer`,
+            `yearReleased`,
+            `genre`,
+            `notes` FROM `videogames` WHERE `atariTitle` LIKE :name
             OR searsTitle LIKE :name
             OR yearReleased LIKE :name
             OR code LIKE :name
@@ -58,86 +41,63 @@ class Query
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            if (empty($result) == true) {
-                print "hello";
-            }
-
             foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
                 print $v;
             }
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
         }
     }
 
-    public function query_genre($genre)
+    public function query_games()
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `genre` LIKE :genre");
-            $genre = $genre . "%";
-            $stmt->bindValue(":genre", $genre);
+            $stmt = $this->conn->prepare("SELECT `atariTitle`, `searsTitle`, `code`,
+            `leadProgrammer`,
+            `yearReleased`,
+            `genre`,
+            `notes` FROM `videogames`");
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            if (empty($result) == true) {
-                print "hello";
-            }
-
             foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
                 print $v;
             }
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
         }
     }
 
-    public function query_all()
+    public function query_games_by_username($username)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM `videogames`");
-            $stmt->execute();
-
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            if (empty($result) == true) {
-                print "hello";
-            }
-
-            foreach (new TableRows(new RecursiveArrayIterator($stmt->fetchAll())) as $k => $v) {
-                print $v;
-            }
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-        }
-    }
-
-    public function query_username_games($username)
-    {
-        try {
-            $stmt = $this->conn->prepare("SELECT `atariTitle`, `searsTitle` , `yearReleased`, `genre`, `notes`, `code` FROM `videogames` WHERE `username`=:username");
+            $stmt = $this->conn->prepare("SELECT `atariTitle`, `searsTitle`, `code`,
+            `leadProgrammer`,
+            `yearReleased`,
+            `genre`,
+            `notes` FROM  `videogames` WHERE `username`=:username");
             $stmt->bindValue(":username", $username);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
             return $stmt->fetchAll();
-
-            // foreach ($stmt->fetchAll() as $k => $v) {
-            //     $item = new NewTable($v);
-            // }
-
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
 
             return null;
         }
     }
 
-    public function query_code($code)
+    public function query_games_by_code($code)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `code`=:code");
+            $stmt = $this->conn->prepare("SELECT `atariTitle`, `searsTitle`, `code`,
+            `leadProgrammer`,
+            `yearReleased`,
+            `genre`,
+            `notes` FROM `videogames` WHERE `code`=:code");
             $stmt->bindValue(":code", $code);
             $stmt->execute();
 
@@ -145,51 +105,65 @@ class Query
 
             return $stmt->fetchAll();
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
 
             return null;
         }
     }
 
-    public function add_game($columns)
+    public function query_games_by_code_username($code, $username)
     {
         try {
-            $insertString = "";
-            $insertValues = "";
-
-            foreach ($columns as $x => $x_value) {
-                $insertString = $insertString . $x . ", ";
-                if (empty($x_value) == false) {
-                    $insertValues = $insertValues . "\"" . $x_value . "\"" . ", ";
-                } else {
-                    $insertValues = $insertValues . "\"\"" . ", ";
-                }
-            }
-            pre_r($columns);
-
-            $insertString = rtrim($insertString, ", ");
-            $insertValues = rtrim($insertValues, ", ");
-            $insertString = "(" . $insertString . ")";
-            $insertValues = "(" . $insertValues . ")";
-
-            $stmt = $this->conn->prepare("INSERT INTO `videogames` " . $insertString
-                . " VALUES " . $insertValues);
-
+            $stmt = $this->conn->prepare("SELECT  `atariTitle`, `searsTitle`, `code`,
+            `leadProgrammer`,
+            `yearReleased`,
+            `genre`,
+            `notes` FROM `videogames` WHERE `code`=:code and `username`=:username");
+            $stmt->bindValue(":code", $code);
+            $stmt->bindValue(":username", $username);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            if (empty($result) == true) {
-                #print "hello";
-            }
+            return $stmt->fetchAll();
         } catch (PDOException $e) {
-            #echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
+
+            return null;
+        }
+    }
+
+    public function insert_game($columns)
+    {
+        try {
+            $stmt = $this->conn->prepare("INSERT INTO `videogames`
+            (`atariTitle`, `searsTitle`, `code`,
+             `leadProgrammer`, `yearReleased`, `genre`,
+             `notes`, `username`)
+             VALUES (:atariTitle, :searsTitle, :code,
+             :leadProgrammer, :yearReleased, :genre,
+             :notes, :username)");
+
+            $stmt->bindValue(":atariTitle", $columns["atariTitle"]);
+            $stmt->bindValue(":searsTitle", $columns["searsTitle"]);
+            $stmt->bindValue(":code", $columns["code"]);
+            $stmt->bindValue(":leadProgrammer", $columns["leadProgrammer"]);
+            $stmt->bindValue(":yearReleased", $columns["yearReleased"]);
+            $stmt->bindValue(":genre", $columns["genre"]);
+            $stmt->bindValue(":notes", $columns["notes"]);
+            $stmt->bindValue(":username", $columns["username"]);
+
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            print "Error: " . $e->getMessage();
             return false;
         }
         return true;
     }
 
-    public function add_developer($columns)
+    public function insert_developer($columns)
     {
         try {
             #TEMP
@@ -210,75 +184,74 @@ class Query
 
             $insertString = rtrim($insertString, ", ");
             $insertValues = rtrim($insertValues, ", ");
-            $insertString = "(" . $insertString . ")";
-            $insertValues = "(" . $insertValues . ")";
 
-            $stmt = $this->conn->prepare("INSERT INTO `developers` " . $insertString
-                . " VALUES " . $insertValues);
+            $stmt = $this->conn->prepare("INSERT INTO `developers` (" . $insertString
+                . ") VALUES (" . $insertValues . ")");
 
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-            if (empty($result) == true) {
-                #print "hello";
-            }
         } catch (PDOException $e) {
-            #echo "Error: " . $e->getMessage();
+            #print "Error: " . $e->getMessage();
             return false;
         }
         return true;
     }
 
-    public function update_game($columns)
+    public function update_game_notes_by_code($columns)
     {
         try {
-            $stmt = $this->conn->prepare("UPDATE `videogames` SET `notes`=:notes WHERE `code`=:code");
+            $stmt = $this->conn->prepare(
+                "UPDATE `videogames`
+                SET `notes`=:notes
+                WHERE `code`=:code");
             $stmt->bindValue(":notes", $columns["notes"]);
             $stmt->bindValue(":code", $columns["code"]);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
             return false;
         }
         return true;
     }
 
-    public function check_code($query)
+    public function check_code_exists($query)
     {
         # 0 = False;
         # 1 = True;
         # 2 = Error;
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM `videogames` WHERE `code`=:theCode");
+            $stmt = $this->conn->prepare(
+                "SELECT `code`
+                FROM `videogames`
+                WHERE `code`=:theCode");
             $stmt->bindValue(":theCode", $query);
             $stmt->execute();
-
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
             if ($stmt->rowCount() == 0) {
                 return 1;
             } else {
                 return 0;
             }
-            print $result;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
             return 2;
         }
     }
 
-    public function check_username($query)
+    public function check_username_exists($query)
     {
         # 0 = False;
         # 1 = True;
         # 2 = Error;
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM `developers` WHERE `username`=:theCode");
-            $stmt->bindValue(":theCode", $query);
+            $stmt = $this->conn->prepare(
+                "SELECT `username`
+                FROM `developers`
+                WHERE `username`=:dev");
+            $stmt->bindValue(":dev", $query);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -290,7 +263,7 @@ class Query
             }
             print $result;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
             return 2;
         }
     }
@@ -301,21 +274,24 @@ class Query
         # 1 = True;
         # 2 = Error;
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM `developers` WHERE `username`=:theUser and `password`=:thePass");
+            $stmt = $this->conn->prepare(
+                "SELECT `username`
+                FROM `developers`
+                WHERE `username`=:theUser and `password`=:thePass");
             $stmt->bindValue(":theUser", $username);
             $stmt->bindValue(":thePass", $password);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-            if ($stmt->rowCount() == 1) {
+            if ($stmt->rowCount() >= 1) {
                 return 1;
             } else {
                 return 0;
             }
             print $result;
         } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
             return 2;
         }
     }

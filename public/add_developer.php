@@ -7,26 +7,31 @@ function developer_form($p_dataStorage, $p_errors)
     ?>
 <div id="developer_form">
     <h2>Create Developer Account</h2>
-    <form action="add_developer.php" method="post">
+    <form action="<?php print htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
         <input type="hidden" name="form_type" value="add_developer">
-        <label for="firstname">First Name</label><span class="error">*</span>: <br>
+        <label for="firstname">First Name<span class="error">*</span>: </label><br>
         <input type="text" name="firstname" id="firstname"
-            value="<?php print value_output($p_dataStorage, "firstname");?>"><?php print_error($p_errors["firstname"]);?><br><br>
+            value="<?php print value_output($p_dataStorage, "firstname");?>" maxlength="100" minlength="4"
+            required="required">
+        <?php print_error($p_errors["firstname"]);?><br><br>
 
-        <label for="lastname">Last Name</label><span class="error">*</span>: <br>
-        <input type="text" name="lastname" id="lastname"
-            value="<?php print value_output($p_dataStorage, "lastname");?>"><?php print_error($p_errors["lastname"]);?><br><br>
+        <label for="lastname">Last Name<span class="error">*</span>: </label><br>
+        <input type="text" name="lastname" id="lastname" value="<?php print value_output($p_dataStorage, "lastname");?>"
+            maxlength="100" minlength="4" required="required">
+        <?php print_error($p_errors["lastname"]);?><br><br>
 
-        <label for="username">Username</label><span class="error">*</span>: <br>
-        <input type="text" name="username" id="username"
-            value="<?php print value_output($p_dataStorage, "username");?>"><?php print_error($p_errors["username"]);?><br><br>
+        <label for="username">Username<span class="error">*</span>: </label><br>
+        <input type="text" name="username" id="username" value="<?php print value_output($p_dataStorage, "username");?>"
+            maxlength="100" minlength="4" required="required">
+        <?php print_error($p_errors["username"]);?><br><br>
 
-        <label for="password">Password</label><span class="error">*</span>: <br>
-        <input type="password" id="password" name="password"><?php print_error($p_errors["password"]);?><br><br>
+        <label for="password">Password<span class="error">*</span>: </label><br>
+        <input type="password" id="password" name="password" maxlength="1000" minlength="4" required="required">
+        <?php print_error($p_errors["password"]);?><br><br>
 
-        <label for="confpassword">Confirm Password</label><span class="error">*</span>: <br>
-        <input type="password" id="confpassword"
-            name="confpassword"><?php print_error($p_errors["confpassword"]);?><br><br>
+        <label for="confpassword">Confirm Password<span class="error">*</span>: </label><br>
+        <input type="password" id="confpassword" name="confpassword" maxlength="1000" minlength="4" required="required">
+        <?php print_error($p_errors["confpassword"]);?><br><br>
 
         <input type="submit" name="submit" value="Create Account">
     </form>
@@ -73,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         # Check if username exists in the database;
         $q = new Query();
-        $result = $q->check_username($dataStorage["username"]);
+        $result = $q->check_username_exists($dataStorage["username"]);
 
         if ($result == 0) {
             $verify = false;
@@ -125,13 +130,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div id="nav_bar">
-        <a href="index.php">Home</a>
-    </div>
-    <?php
-require_once "../src/Debug.php";
-
-DEBUG_SESSION();
+    <?php include_once "../src/components/nav_bar.php";?>
+    <?php include_once "../src/Debug.php";
 ?>
 
     <div id="body">
