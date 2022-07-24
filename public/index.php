@@ -30,9 +30,9 @@ session_start();
             <?php
 if (isset($_SESSION["username"]) == true) {
     print "<p>Welcome back, " . $_SESSION["username"] . "</p>";
-    print "<a href=\"developers.php\"><h4>Dashboard</h4></a>";
+    print "<a href=\"developers.php\"><h3>Dashboard</h3></a>";
 } else {
-    print "<a href=\"login.php\"><h4>Login</h4></a>";
+    print "<a href=\"login.php\"><h3>Login</h3></a>";
 }
 ?>
         </div>

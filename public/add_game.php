@@ -12,21 +12,25 @@ function game_form($p_dataStorage, $p_errors)
         <input type="hidden" name="form_type" value="add_game">
         <label for="atariTitle">Atari Title<span class="error">*</span>: </label><br>
         <input type="text" name="atariTitle" id="atariTitle" placeholder="Adventures of John"
-            value="<?php print value_output($p_dataStorage, "atariTitle");?>">
+            value="<?php print value_output($p_dataStorage, "atariTitle");?>" maxlength="50" minlength="2"
+            required="required">
         <?php print_error($p_errors["atariTitle"]);?><br><br>
 
         <label for="searsTitle">Sears Title: </label><br><input type="text" name="searsTitle" id="searsTitle"
-            value="<?php print value_output($p_dataStorage, "searsTitle");?>"><br><br>
+            value="<?php print value_output($p_dataStorage, "searsTitle");?>" maxlength="50" minlength="2"><br><br>
 
         <label for="code">Code<span class="error">*</span>: </label><br><input type="text" name="code" id="code"
-            value="<?php print value_output($p_dataStorage, "code");?>">
+            value="<?php print value_output($p_dataStorage, "code");?>" maxlength="20" minlength="4"
+            required="required">
         <?php print_error($p_errors["code"]);?><br><br>
 
         <label for="leadProgrammer">Lead Programmer: </label><br><input type="text" name="leadProgrammer"
-            id="leadProgrammer" value="<?php print value_output($p_dataStorage, "leadProgrammer");?>"><br><br>
+            id="leadProgrammer" value="<?php print value_output($p_dataStorage, "leadProgrammer");?>" maxlength="50"
+            minlength="2"><br><br>
 
-        <label for="yearReleased">Year Released<span class="error">*</span>: </label><br><input type="text"
-            name="yearReleased" id="yearReleased" value="<?php print value_output($p_dataStorage, "yearReleased");?>">
+        <label for="yearReleased">Year Released<span class="error">*</span>: </label><br><input type="number"
+            name="yearReleased" id="yearReleased" value="<?php print value_output($p_dataStorage, "yearReleased");?>"
+            max="2022" min="1" required="required">
         <?php print_error($p_errors["yearReleased"]);?><br><br>
 
         <?php generate_genre_menu(value_output($p_dataStorage, "genre"), true);?>
@@ -35,7 +39,7 @@ function game_form($p_dataStorage, $p_errors)
         <label for="notes">Notes: </label><br><textarea type="text"
             name="notes"><?php print value_output($p_dataStorage, "notes");?></textarea><br><br>
 
-        <input type="submit" name="submit" value="Add">
+        <input type="submit" name="submit" value="Add Game">
     </form>
 </div>
 <?php

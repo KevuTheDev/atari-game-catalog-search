@@ -13,12 +13,12 @@ function login_form($p_errors)
 <div id="login_form">
     <h2>Login</h2>
     <form action="<?php print htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
-        <label for="username"> Username:</label><br>
-        <input id="username" type="text" name="username">
+        <label for="username">Username:</label><br>
+        <input id="username" type="text" name="username" maxlength="100" minlength="1" required="required">
         <?php print_error($p_errors["username"]);?><br><br>
 
         <label for="password">Password:</label><br>
-        <input id="password" type="password" name="password">
+        <input id="password" type="password" name="password" maxlength="100" minlength="1" required="required">
         <?php print_error($p_errors["password"]);?><br><br>
 
         <input type="submit" name="submit" value="Login">

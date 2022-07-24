@@ -21,12 +21,16 @@ function genre_menu_array($genresArray)
 function generate_genre_menu($genre_choice, $enabled)
 {
     if ($enabled == true) {
-        print "Genre<span class=\"error\">*</span>:<br><select name=\"genre\">";
-    } else {
-        print "Genre<span class=\"error\">*</span>:<br><select disabled=\"disabled\" name=\"genre\">";
-    }
+        ?>
+<label for="genre">Genre<span class="error">*</span>: </label><br><select name="genre" id="genre" required="required">;
+    <?php
+} else {
+        ?>
+    <label for="genre">Genre<span class="error">*</span>: </label><br><select disabled="disabled" name="genre"
+        id="genre" required="required"> <?php
+}
 
-    print "<option value=\"\"></option>";
+    print "<option value=\"\">-Select an option-</option>";
 
     foreach ($GLOBALS["genresAssociativeArray"] as $key => $value) {
         if ($genre_choice == $key) {

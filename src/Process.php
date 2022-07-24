@@ -55,23 +55,18 @@ function edit_game()
     header("Refresh:1; url=confirmation.php");
 }
 
-function process()
-{
-    if (isset($_SESSION["add_game"]) == true) {
-        if (empty($_SESSION["add_game"]) == false) {
-            add_game();
-        }
-    } else if (isset($_SESSION["add_developer"]) == true) {
-        if (empty($_SESSION["add_developer"]) == false) {
-            add_developer();
-        }
-    } else if (isset($_SESSION['edit_game']) == true) {
-        if (empty($_SESSION["edit_game"]) == false) {
-            edit_game();
-        }
-    } else {
-        print "OH NO";
+if (isset($_SESSION["add_game"]) == true) {
+    if (empty($_SESSION["add_game"]) == false) {
+        add_game();
     }
+} else if (isset($_SESSION["add_developer"]) == true) {
+    if (empty($_SESSION["add_developer"]) == false) {
+        add_developer();
+    }
+} else if (isset($_SESSION['edit_game']) == true) {
+    if (empty($_SESSION["edit_game"]) == false) {
+        edit_game();
+    }
+} else {
+    print "OH NO";
 }
-
-process();

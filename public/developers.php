@@ -19,13 +19,13 @@
         </div>
         <div id="add_game">
             <a href="add_game.php">
-                <h2>Add Game</h2>
+                <h3>Add Game</h3>
             </a>
         </div>
 
-        <div id="edit_game">
-            <a href="edit_game.php">
-                <h2>Edit Game</h2>
+        <div id="view_game">
+            <a href="view_games.php">
+                <h3>View Game</h3>
             </a>
         </div>
 
