@@ -21,11 +21,16 @@ my_session_start();
 
     <div id="body">
         <?php
-if (empty($_SESSION["form_type"]) == false) {
-    if (empty($_SESSION["confirmation"]) == false) {
+// Checks if developer is logged in
+if (isset($_SESSION["username"]) == true) {
+
+    // Checks if the request was from a form and has confirmation
+    if (empty($_SESSION["form_type"]) == false && empty($_SESSION["confirmation"]) == false) {
         print "<div id=\"confirmation\">";
         print "<h1>Confirmation Page</h1>";
 
+        // Evaluates the scenario of "confirmation" and "form_type"
+        // And proceed to the correct scenario.
         if ($_SESSION["confirmation"] == "valid") {
             if ($_SESSION["form_type"] == "add_game") {
                 print "<p>Your game has been successfully added into the catalog!!</p>";
@@ -49,7 +54,6 @@ if (empty($_SESSION["form_type"]) == false) {
         } else {
             print "<p>Something is not right here.</p>";
         }
-
         print "</div>";
     } else {
         error_invalid_page("");
@@ -58,11 +62,11 @@ if (empty($_SESSION["form_type"]) == false) {
     error_invalid_page("");
 }
 
+// Removes the SESSION values
 unset($_SESSION["form_type"]);
 unset($_SESSION["confirmation"]);
 ?>
     </div>
 </body>
-
 
 </html>

@@ -88,6 +88,8 @@ if (isset($_SESSION["username"]) == false) {
                 print "Logging in!!!<br><br>";
                 $_SESSION["username"] = $dataStorage["username"];
 
+                //$_SESSION["active_dev"] = 1;
+
                 # Move to developers.php page
                 header("Refresh:1; url=developers.php");
             } else {

@@ -8,6 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if ($GLOBALS["DEBUGMODE"] == true) {
     print "<hr>";
+    print "<a href=\"reset.php\">Reset Button</a>";
     print "<div id=\"DEBUG\">";
     print "<h3>DEBUG INFORMATION</h3>";
     //print "<p>GLOBALS</p>";

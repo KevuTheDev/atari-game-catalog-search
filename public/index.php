@@ -20,7 +20,7 @@ session_start();
         <div id="search_bar">
             <h2>Search Bar</h2>
             <form action="search.php" method="get">
-                <input type="text" name="search">
+                <input type="search" name="search">
                 <input type="submit" name="submit" value="Search">
             </form>
         </div>

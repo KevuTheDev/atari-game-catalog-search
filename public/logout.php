@@ -11,13 +11,15 @@ function logout_message_success()
 <?php
 }
 
+my_session_start();
+
 $logout_success = false;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    my_session_start();
-
-    unset($_SESSION["username"]);
-    $logout_success = true;
+if (isset($_SESSION["username"]) == true) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        unset($_SESSION["username"]);
+        $logout_success = true;
+    }
 }
 ?>
 
@@ -38,8 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div id="body">
         <?php
-if ($logout_success == true) {
-    logout_message_success();
+if (isset($_SESSION["username"]) == true) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($logout_success == true) {
+            logout_message_success();
+        } else {
+            error_invalid_page("Please logout from the dashboard.");
+        }
+    } else {
+        error_invalid_page("Please logout from the dashboard.");
+    }
 } else {
     error_invalid_page("Cannot log out if not logged in to begin with.");
 }

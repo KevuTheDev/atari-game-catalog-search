@@ -136,26 +136,22 @@ class Query
     public function insert_game($columns)
     {
         try {
-            $insertString = "";
-            $insertValues = "";
+            $stmt = $this->conn->prepare("INSERT INTO `videogames`
+            (`atariTitle`, `searsTitle`, `code`,
+             `leadProgrammer`, `yearReleased`, `genre`,
+             `notes`, `username`)
+             VALUES (:atariTitle, :searsTitle, :code,
+             :leadProgrammer, :yearReleased, :genre,
+             :notes, :username)");
 
-            foreach ($columns as $x => $x_value) {
-                $insertString = $insertString . $x . ", ";
-                if (empty($x_value) == false) {
-                    $insertValues = $insertValues . "\"" . $x_value . "\"" . ", ";
-                } else {
-                    $insertValues = $insertValues . "\"\"" . ", ";
-                }
-            }
-            pre_r($columns);
-
-            $insertString = rtrim($insertString, ", ");
-            $insertValues = rtrim($insertValues, ", ");
-            $insertString = "(" . $insertString . ")";
-            $insertValues = "(" . $insertValues . ")";
-
-            $stmt = $this->conn->prepare("INSERT INTO `videogames` " . $insertString
-                . " VALUES " . $insertValues);
+            $stmt->bindValue(":atariTitle", $columns["atariTitle"]);
+            $stmt->bindValue(":searsTitle", $columns["searsTitle"]);
+            $stmt->bindValue(":code", $columns["code"]);
+            $stmt->bindValue(":leadProgrammer", $columns["leadProgrammer"]);
+            $stmt->bindValue(":yearReleased", $columns["yearReleased"]);
+            $stmt->bindValue(":genre", $columns["genre"]);
+            $stmt->bindValue(":notes", $columns["notes"]);
+            $stmt->bindValue(":username", $columns["username"]);
 
             $stmt->execute();
 
@@ -188,11 +184,9 @@ class Query
 
             $insertString = rtrim($insertString, ", ");
             $insertValues = rtrim($insertValues, ", ");
-            $insertString = "(" . $insertString . ")";
-            $insertValues = "(" . $insertValues . ")";
 
-            $stmt = $this->conn->prepare("INSERT INTO `developers` " . $insertString
-                . " VALUES " . $insertValues);
+            $stmt = $this->conn->prepare("INSERT INTO `developers` (" . $insertString
+                . ") VALUES (" . $insertValues . ")");
 
             $stmt->execute();
 
