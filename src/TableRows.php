@@ -56,16 +56,16 @@ class NewRow
 
     private function print_array($array)
     {
-        print "<td style='width:150px;border:1px solid black;'>" . $array["atariTitle"] . "</td>" . "\n";
-        print "<td style='width:150px;border:1px solid black;'>" . $array["searsTitle"] . "</td>" . "\n";
-        print "<td style='width:150px;border:1px solid black;'>" . $array["code"] . "</td>" . "\n";
+        #pre_r($array);
 
-        print "<td style='width:150px;border:1px solid black;'>" . $array["yearReleased"] . "</td>" . "\n";
-        print "<td style='width:150px;border:1px solid black;'>" . $array["genre"] . "</td>" . "\n";
-        print "<td style='width:150px;border:1px solid black;'>" . $array["notes"] . "</td>" . "\n";
+        $tdStyle = "<td style='width:150px;border:1px solid black;'>";
+
+        foreach ($array as $value) {
+            print $tdStyle . $value . "</td>" . "\n";
+        }
 
         print "<td>";
-        print "<form action=\"edit_note.php\" method=\"post\">";
+        print "<form action=\"edit_game.php\" method=\"post\">";
         print "<input type=\"hidden\" name=\"code\" value=\"" . $array["code"] . "\">";
         print "<input type=\"submit\" name=\"submit\" value=\"Edit\">";
         print "</form>";
