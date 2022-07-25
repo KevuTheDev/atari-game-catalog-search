@@ -56,7 +56,8 @@ class Query
             `leadProgrammer`,
             `yearReleased`,
             `genre`,
-            `notes` FROM `videogames`");
+            `notes`
+            FROM `videogames`");
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -76,7 +77,9 @@ class Query
             `leadProgrammer`,
             `yearReleased`,
             `genre`,
-            `notes` FROM  `videogames` WHERE `username`=:username");
+            `notes`
+            FROM  `videogames`
+            WHERE `username`=:username");
             $stmt->bindValue(":username", $username);
             $stmt->execute();
 
@@ -97,7 +100,9 @@ class Query
             `leadProgrammer`,
             `yearReleased`,
             `genre`,
-            `notes` FROM `videogames` WHERE `code`=:code");
+            `notes`
+            FROM `videogames`
+            WHERE `code`=:code");
             $stmt->bindValue(":code", $code);
             $stmt->execute();
 
@@ -118,7 +123,9 @@ class Query
             `leadProgrammer`,
             `yearReleased`,
             `genre`,
-            `notes` FROM `videogames` WHERE `code`=:code and `username`=:username");
+            `notes`
+            FROM `videogames`
+            WHERE `code`=:code and `username`=:username");
             $stmt->bindValue(":code", $code);
             $stmt->bindValue(":username", $username);
             $stmt->execute();
@@ -136,13 +143,14 @@ class Query
     public function insert_game($columns)
     {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO `videogames`
-            (`atariTitle`, `searsTitle`, `code`,
-             `leadProgrammer`, `yearReleased`, `genre`,
-             `notes`, `username`)
-             VALUES (:atariTitle, :searsTitle, :code,
-             :leadProgrammer, :yearReleased, :genre,
-             :notes, :username)");
+            $stmt = $this->conn->prepare(
+                "INSERT INTO `videogames`
+                (`atariTitle`, `searsTitle`, `code`,
+                `leadProgrammer`, `yearReleased`, `genre`,
+                `notes`, `username`)
+                VALUES (:atariTitle, :searsTitle, :code,
+                :leadProgrammer, :yearReleased, :genre,
+                :notes, :username)");
 
             $stmt->bindValue(":atariTitle", $columns["atariTitle"]);
             $stmt->bindValue(":searsTitle", $columns["searsTitle"]);
@@ -152,7 +160,6 @@ class Query
             $stmt->bindValue(":genre", $columns["genre"]);
             $stmt->bindValue(":notes", $columns["notes"]);
             $stmt->bindValue(":username", $columns["username"]);
-
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -166,33 +173,21 @@ class Query
     public function insert_developer($columns)
     {
         try {
-            #TEMP
             $columns["salt"] = "123";
-            #TEMP
-
-            $insertString = "";
-            $insertValues = "";
-
-            foreach ($columns as $x => $x_value) {
-                $insertString = $insertString . $x . ", ";
-                if (empty($x_value) == false) {
-                    $insertValues = $insertValues . "\"" . $x_value . "\"" . ", ";
-                } else {
-                    $insertValues = $insertValues . "\"\"" . ", ";
-                }
-            }
-
-            $insertString = rtrim($insertString, ", ");
-            $insertValues = rtrim($insertValues, ", ");
-
-            $stmt = $this->conn->prepare("INSERT INTO `developers` (" . $insertString
-                . ") VALUES (" . $insertValues . ")");
+            $stmt = $this->conn->prepare(
+                "INSERT INTO `developers`
+                (`firstname`, `lastname`, `username`, `password`
+                VALUES (:firstname, :lastname, :username, :password, :salt");
+            $stmt->bindValue(":firstname", $columns["firstname"]);
+            $stmt->bindValue(":lastname", $columns["lastname"]);
+            $stmt->bindValue(":username", $columns["username"]);
+            $stmt->bindValue(":password", $columns["password"]);
 
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            #print "Error: " . $e->getMessage();
+            print "Error: " . $e->getMessage();
             return false;
         }
         return true;
