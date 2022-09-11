@@ -30,7 +30,7 @@ if (isset($_SESSION["username"]) == true) {
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Logout | Atari Game Catalog</title>
+    <title>Logout | Atari Game Search</title>
     <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 

@@ -66,7 +66,7 @@ if (isset($_SESSION["username"]) == false) {
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Login | Atari Game Catalog</title>
+    <title>Login | Atari Game Search</title>
     <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
@@ -96,7 +96,7 @@ if (isset($_SESSION["username"]) == false) {
                 login_form($errors);
                 ###TODO
                 #Better page design.
-                print "INVALID LOGIN!!<br><br>";
+                print "<h3 class=\"error\">INVALID LOGIN!!</h3><br><br>";
             }
         } else {
             login_form($errors);

@@ -11,7 +11,7 @@ require_once "../src/Query.php";
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>View Games | Atari Game Catalog</title>
+    <title>View Games | Atari Game Search</title>
     <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
@@ -22,8 +22,9 @@ require_once "../src/Query.php";
     <div id="body">
         <?php
 if (isset($_SESSION["username"]) == true) {
-    echo "<table style='border: solid 1px black;'>";
-    echo "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Lead Programmer</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
+    print "<h2>Your games</h2>";
+    print "<table style='border: solid 1px black;'>";
+    print "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Lead Programmer</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
 
     $q = new Query();
     $results = $q->query_games_by_username($_SESSION["username"]);

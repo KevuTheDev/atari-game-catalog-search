@@ -1,10 +1,8 @@
 <?php
 require_once "../config/config.php";
-require_once "utils.php";
+require_once "Header.php";
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+my_session_start();
 
 if ($GLOBALS["DEBUGMODE"] == true) {
     print "<hr>";

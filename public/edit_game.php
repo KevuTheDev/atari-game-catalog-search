@@ -18,28 +18,29 @@ function edit_game_form($p_dataStorage, $p_errors)
         <?php print_error($p_errors["atariTitle"]);?><br><br>
 
         <label for="searsTitle">Sears Title: </label><br><input type="text" name="searsTitle" id="searsTitle"
-            value="<?php print value_output($p_dataStorage, "searsTitle");?>" maxlength="50" minlength="2"><br><br>
+            value="<?php print value_output($p_dataStorage, "searsTitle");?>" maxlength="50" minlength="2"
+            readonly="readonly"><br><br>
 
         <label for="code">Code<span class="error">*</span>: </label><br><input type="text" name="code" id="code"
-            value="<?php print value_output($p_dataStorage, "code");?>" maxlength="20" minlength="4"
-            required="required"><br><br>
+            value="<?php print value_output($p_dataStorage, "code");?>" maxlength="20" minlength="4" required="required"
+            readonly="readonly"><br><br>
 
         <label for="leadProgrammer">Lead Programmer: </label><br><input type="text" name="leadProgrammer"
             id="leadProgrammer" value="<?php print value_output($p_dataStorage, "leadProgrammer");?>" maxlength="50"
-            minlength="2"><br><br>
+            minlength="2" readonly="readonly"><br><br>
 
         <label for="yearReleased">Year Released<span class="error">*</span>: </label><br><input type="number"
             name="yearReleased" id="yearReleased" value="<?php print value_output($p_dataStorage, "yearReleased");?>"
-            max="2022" min="1" required="required">
+            max="2022" min="1" required="required" readonly="readonly">
         <?php print_error($p_errors["yearReleased"]);?><br><br>
 
-        <?php generate_genre_menu(value_output($p_dataStorage, "genre"), true);?>
+        <?php generate_genre_menu(value_output($p_dataStorage, "genre"), false);?>
         <?php print_error($p_errors["genre"]);?><br><br>
 
         <label for="notes">Notes: </label><br><textarea type="text"
             name="notes"><?php print value_output($p_dataStorage, "notes");?></textarea><br><br>
 
-        <input type="submit" name="submit" value="Add Game">
+        <input type="submit" name="submit" value="Edit Game">
     </form>
 </div>
 <?php
@@ -92,7 +93,7 @@ if (isset($_SESSION["username"]) == true) {
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Edit Game | Atari Game Catalog</title>
+    <title>Edit Game | Atari Game Search</title>
     <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
     <style>
     .error {

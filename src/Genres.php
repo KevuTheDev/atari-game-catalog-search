@@ -27,7 +27,7 @@ function generate_genre_menu($genre_choice, $enabled)
 } else {
         ?>
     <label for="genre">Genre<span class="error">*</span>: </label><br><select disabled="disabled" name="genre"
-        id="genre" required="required"> <?php
+        id="genre" required="required" readonly="readonly"> <?php
 }
 
     print "<option value=\"\">-Select an option-</option>";

@@ -5,7 +5,7 @@ function dashboard()
 {
     if (isset($_SESSION["username"]) == true) {
         ?>
-<?php print "<h1>Welcome back, " . $_SESSION["username"] . "</h1>";?>
+<?php print "<h1 class=\"developer\">Welcome back, " . $_SESSION["username"] . "</h1>";?>
 <div id="developer_header">
     <h2>Developer Dashboard</h2>
 </div>
@@ -43,8 +43,13 @@ my_session_start();
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Developer Dashboard | Atari Game Catalog</title>
+    <title>Developer Dashboard | Atari Game Search</title>
     <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
+    <style>
+    .developer {
+        color: #4A4E69;
+    }
+    </style>
 </head>
 
 <body>

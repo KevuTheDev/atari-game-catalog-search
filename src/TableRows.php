@@ -24,29 +24,6 @@ class TableRows extends RecursiveIteratorIterator
     }
 }
 
-class TableRowsEdit extends RecursiveIteratorIterator
-{
-    public function __construct($it)
-    {
-        parent::__construct($it, self::LEAVES_ONLY);
-    }
-
-    public function current(): string
-    {
-        return "<td style='width:150px;border:1px solid black;'>" . parent::current() . "</td>";
-    }
-
-    public function beginChildren(): void
-    {
-        echo "<tr>";
-    }
-
-    public function endChildren(): void
-    {
-        echo "</tr>" . "\n";
-    }
-}
-
 class NewRow
 {
     public function __construct($array)
