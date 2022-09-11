@@ -25,10 +25,11 @@ function add_developer()
     $q = new Query();
     $result = $q->insert_developer($_SESSION["add_developer"]);
 
+    $_SESSION["new_user"] = $_SESSION["add_developer"]["username"];
+
     //session_unset();
     unset($_SESSION["add_developer"]);
     $_SESSION["form_type"] = "add_developer";
-    $result = true;
 
     if ($result == true) {
         $_SESSION["confirmation"] = "valid";

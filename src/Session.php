@@ -10,7 +10,7 @@ function my_session_start()
 function my_session_destory()
 {
     if (session_status() != PHP_SESSION_NONE) {
-        my_session_destory();
+        my_session_start();
         session_destroy();
     }
 }

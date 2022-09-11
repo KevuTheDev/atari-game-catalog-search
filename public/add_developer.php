@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Create Developer Account | Atari Game Catalog</title>
+    <title>Create Developer Account | Atari Game Search</title>
     <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 

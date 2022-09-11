@@ -21,8 +21,19 @@ function get_query()
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>Search | Atari Game Catalog</title>
+    <title>Search | Atari Game Search</title>
     <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
+    <style>
+    button {
+        width: 2%;
+        height: 5%;
+    }
+
+    img {
+        width: 50%;
+        height: 50%;
+    }
+    </style>
 </head>
 
 <body>
@@ -33,8 +44,10 @@ function get_query()
         <div id="search_bar">
             <h2>Search Bar</h2>
             <form action="<?php print htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="get">
-                <input type="search" name="search" value="<?php print get_query();?>">
-                <input type="submit" name="submit" value="Search">
+                <input type="search" name="search" value="<?php print get_query();?>" required="required">
+                <button type="submit" name="submit" value="Search">
+                    <img src="resources/images/search_icon.png" />
+                </button>
             </form>
         </div>
         <div id="query">
@@ -60,9 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             //print "Please make a search query at localhost";
             print "<h1 style=\"color:red\">THIS IS TEST FEATURE</h1>";
             print "<h1 style=\"color:red\">THIS WILL NOT OUTPUT FULL TABLE</h1>";
-
             echo "<h2>Your Query:</h2>";
-
             echo "Querying all games";
             echo "<br><br>";
             echo "<table style='border: solid 1px black;'>";

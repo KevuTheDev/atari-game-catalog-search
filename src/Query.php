@@ -56,7 +56,8 @@ class Query
             `leadProgrammer`,
             `yearReleased`,
             `genre`,
-            `notes` FROM `videogames`");
+            `notes`
+            FROM `videogames`");
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -76,7 +77,9 @@ class Query
             `leadProgrammer`,
             `yearReleased`,
             `genre`,
-            `notes` FROM  `videogames` WHERE `username`=:username");
+            `notes`
+            FROM  `videogames`
+            WHERE `username`=:username");
             $stmt->bindValue(":username", $username);
             $stmt->execute();
 
@@ -97,7 +100,9 @@ class Query
             `leadProgrammer`,
             `yearReleased`,
             `genre`,
-            `notes` FROM `videogames` WHERE `code`=:code");
+            `notes`
+            FROM `videogames`
+            WHERE `code`=:code");
             $stmt->bindValue(":code", $code);
             $stmt->execute();
 
@@ -118,7 +123,9 @@ class Query
             `leadProgrammer`,
             `yearReleased`,
             `genre`,
-            `notes` FROM `videogames` WHERE `code`=:code and `username`=:username");
+            `notes`
+            FROM `videogames`
+            WHERE `code`=:code and `username`=:username");
             $stmt->bindValue(":code", $code);
             $stmt->bindValue(":username", $username);
             $stmt->execute();
@@ -133,25 +140,47 @@ class Query
         }
     }
 
-    public function insert_game($columns)
+    public function insert_game($dataStorage)
     {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO `videogames`
-            (`atariTitle`, `searsTitle`, `code`,
-             `leadProgrammer`, `yearReleased`, `genre`,
-             `notes`, `username`)
-             VALUES (:atariTitle, :searsTitle, :code,
-             :leadProgrammer, :yearReleased, :genre,
-             :notes, :username)");
+            $stmt = $this->conn->prepare(
+                "INSERT INTO `videogames`
+                (`atariTitle`, `searsTitle`, `code`,
+                `leadProgrammer`, `yearReleased`, `genre`,
+                `notes`, `username`)
+                VALUES (:atariTitle, :searsTitle, :code,
+                :leadProgrammer, :yearReleased, :genre,
+                :notes, :username)");
 
-            $stmt->bindValue(":atariTitle", $columns["atariTitle"]);
-            $stmt->bindValue(":searsTitle", $columns["searsTitle"]);
-            $stmt->bindValue(":code", $columns["code"]);
-            $stmt->bindValue(":leadProgrammer", $columns["leadProgrammer"]);
-            $stmt->bindValue(":yearReleased", $columns["yearReleased"]);
-            $stmt->bindValue(":genre", $columns["genre"]);
-            $stmt->bindValue(":notes", $columns["notes"]);
-            $stmt->bindValue(":username", $columns["username"]);
+            $stmt->bindValue(":atariTitle", $dataStorage["atariTitle"]);
+            $stmt->bindValue(":searsTitle", $dataStorage["searsTitle"]);
+            $stmt->bindValue(":code", $dataStorage["code"]);
+            $stmt->bindValue(":leadProgrammer", $dataStorage["leadProgrammer"]);
+            $stmt->bindValue(":yearReleased", $dataStorage["yearReleased"]);
+            $stmt->bindValue(":genre", $dataStorage["genre"]);
+            $stmt->bindValue(":notes", $dataStorage["notes"]);
+            $stmt->bindValue(":username", $dataStorage["username"]);
+            $stmt->execute();
+
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            print "Error: " . $e->getMessage();
+            return false;
+        }
+        return true;
+    }
+
+    public function insert_developer($dataStorage)
+    {
+        try {
+            $stmt = $this->conn->prepare(
+                "INSERT INTO `developers`
+                (`firstname`, `lastname`, `username`, `password`)
+                VALUES (:firstname, :lastname, :username, :password)");
+            $stmt->bindValue(":firstname", $dataStorage["firstname"]);
+            $stmt->bindValue(":lastname", $dataStorage["lastname"]);
+            $stmt->bindValue(":username", $dataStorage["username"]);
+            $stmt->bindValue(":password", $dataStorage["password"]);
 
             $stmt->execute();
 
@@ -163,50 +192,15 @@ class Query
         return true;
     }
 
-    public function insert_developer($columns)
-    {
-        try {
-            #TEMP
-            $columns["salt"] = "123";
-            #TEMP
-
-            $insertString = "";
-            $insertValues = "";
-
-            foreach ($columns as $x => $x_value) {
-                $insertString = $insertString . $x . ", ";
-                if (empty($x_value) == false) {
-                    $insertValues = $insertValues . "\"" . $x_value . "\"" . ", ";
-                } else {
-                    $insertValues = $insertValues . "\"\"" . ", ";
-                }
-            }
-
-            $insertString = rtrim($insertString, ", ");
-            $insertValues = rtrim($insertValues, ", ");
-
-            $stmt = $this->conn->prepare("INSERT INTO `developers` (" . $insertString
-                . ") VALUES (" . $insertValues . ")");
-
-            $stmt->execute();
-
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            #print "Error: " . $e->getMessage();
-            return false;
-        }
-        return true;
-    }
-
-    public function update_game_notes_by_code($columns)
+    public function update_game_notes_by_code($dataStorage)
     {
         try {
             $stmt = $this->conn->prepare(
                 "UPDATE `videogames`
                 SET `notes`=:notes
                 WHERE `code`=:code");
-            $stmt->bindValue(":notes", $columns["notes"]);
-            $stmt->bindValue(":code", $columns["code"]);
+            $stmt->bindValue(":notes", $dataStorage["notes"]);
+            $stmt->bindValue(":code", $dataStorage["code"]);
             $stmt->execute();
 
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);

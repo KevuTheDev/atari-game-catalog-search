@@ -1,3 +1,49 @@
 .error {
     color: #FF0000;
 }
+
+.padding-1 {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.nav-right-auto {
+    margin-right: auto;
+}
+
+.nav-link {
+    display: block;
+    padding: .5rem;
+    text-decoration: none;
+    color: #212529;
+}
+
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+a {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.text-center {
+    text-align: center;
+}

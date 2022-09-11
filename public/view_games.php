@@ -11,7 +11,7 @@ require_once "../src/Query.php";
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="Kevin He">
-    <title>View Games | Atari Game Catalog</title>
+    <title>View Games | Atari Game Search</title>
     <link rel="stylesheet" type="text/css" href="resources/css/main.css" />
 </head>
 
@@ -21,19 +21,23 @@ require_once "../src/Query.php";
 
     <div id="body">
         <?php
-echo "<table style='border: solid 1px black;'>";
-echo "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Lead Programmer</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
+if (isset($_SESSION["username"]) == true) {
+    print "<h2>Your games</h2>";
+    print "<table style='border: solid 1px black;'>";
+    print "<tr><th>Atari Title</th><th>Sears Title</th><th>Code</th><th>Lead Programmer</th><th>Year Released</th><th>Genre</th><th>Notes</th></tr>";
 
-$q = new Query();
-$results = $q->query_games_by_username($_SESSION["username"]);
+    $q = new Query();
+    $results = $q->query_games_by_username($_SESSION["username"]);
 
-foreach ($results as $k => $v) {
-    print "<tr>";
-    $item = new NewRow($v);
-    print "</tr>";
+    foreach ($results as $k => $v) {
+        print "<tr>";
+        $item = new NewRow($v);
+        print "</tr>";
+    }
+    echo "</table>";
+} else {
+    error_invalid_page("Must be logged in to view games.");
 }
-echo "</table>";
-
 ?>
     </div>
 </body>
